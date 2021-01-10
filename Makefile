@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/01/08 15:35:56 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/01/10 13:16:29 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
 SRCS			=		\
 						main.c \
 						$(addprefix reader/, reader.c) \
+						$(addprefix parser/, parser.c) \
+						$(addprefix utils/, global_utils.c) \
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
