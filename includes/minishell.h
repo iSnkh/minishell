@@ -6,11 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/01/08 16:23:12 by amonteli         ###   ########lyon.fr   */
-=======
-/*   Updated: 2021/01/08 16:17:01 by wperu            ###   ########lyon.fr   */
->>>>>>> cad2946a17f25ec2ea71f32c22d5e88f304b42b7
+/*   Updated: 2021/01/27 15:34:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +19,45 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include <ernno.h>
-# include <Linux/limits.h>
+# include <errno.h>
+# include <limits.h>
 # include <stdbool.h>
+# include <signal.h>
+# include <sys/types.h>
 # include "../libft/includes/libft.h"
 
-<<<<<<< HEAD
-typedef struct		s_ms
-{
-		char		**env;
-}					t_ms;
-=======
->>>>>>> cad2946a17f25ec2ea71f32c22d5e88f304b42b7
 
-int		main(int argc, char **args, char **env);
-void    built_in_cd(char *path);
-void    build_in_pwd(void);
+typedef struct		s_env
+{
+		char				*var;
+		char				*var_exprt;
+		struct s_env		*next;
+}					t_env;
+
+t_env *first;
+
+int		main(int argc, char **argv, char **env);
+
+void	ft_exec_cmd(char **cmd, char **env);
+void	free_array(char **array);
+void	free_lst(void);
+
+void    ft_dup_env(char **envp);
+void	ft_add_env_var(char *var);
+char	*ft_get_env_var(char *var);
+char	**ft_lst_to_array();
+bool	get_abs_path(char **cmd, char **envp);
+
+
+// built-in
+
+void	built_in_export(char **cmd);
+void	built_in_cd(char *path);
+char	*built_in_pwd(void);
+void	built_in_env(void);
+void 	exec_built_in(char **built_in);
+bool	is_built_in(char *cmd);
+void	built_in_echo(char **cmd);
 
 void	shell_loop();
 #endif
