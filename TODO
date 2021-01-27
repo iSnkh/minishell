@@ -1,0 +1,9 @@
+parser:
+
+	- remove quotes and flag it in t_parser
+	- remove double quotess and flag it in t_parser
+	- replace all $XXXX with real value
+
+	- if test='a  b  c' bash get only one space max
+	- if test='a  b      c' and echo "$test" its output all space (doesn't skip them)
+	- si c'est entre quotes c'est uniquement du test pas d'assignation

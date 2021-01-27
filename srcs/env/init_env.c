@@ -6,13 +6,13 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/08 15:37:06 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/01/27 15:30:42 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(int args_count, char **args, char **env)
+void	init_env(char **env)
 {
 
 }

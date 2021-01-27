@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/10 12:58:13 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/01/27 16:50:15 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ int		main(int argc, char **args, char **env)
 	int ret;
 
 	ret = 0;
-	line = ft_calloc(1, sizeof(char));
-	ft_printf("\033[H\033[J");
-	ft_printf("[minishell] >");
-
-	cmd = ft_strdup("");
-	while (get_next_line(1, &line))
-	{
-		printf("line={%s}\n", line);
-		cmd = ft_strjoin(cmd, line);
-		printf("cmd={%s}\n", cmd);
-	}
+	init_shell(argc, args, env);
+	shell_loop(0, env);
 }
