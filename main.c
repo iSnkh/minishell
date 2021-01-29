@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/01/27 15:27:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/01/29 15:30:50 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool is_built_in(char *cmd)
 {
-    const char  *built_in[]= {"cd", "pwd", "env","echo", NULL};
+    const char  *built_in[]= {"cd", "pwd", "env","echo","export", NULL};
     int         i;
 
     i = 0;
@@ -47,7 +47,6 @@ void exec_built_in(char **built_in)
 int main(int argc, char **argv, char **envp)
 {
     first = NULL;
-    exprt = NULL;
     char *buffer = NULL;
     size_t buf_size = 2048;
     char **cmd = NULL;
@@ -71,7 +70,7 @@ int main(int argc, char **argv, char **envp)
             exec_built_in(cmd);
         else
         {
-            puts("OK");
+
             env = ft_lst_to_array();
             if(get_abs_path(cmd,env) == true)
                 ft_exec_cmd(cmd,env);
