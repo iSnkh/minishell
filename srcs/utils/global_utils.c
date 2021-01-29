@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/27 15:39:13 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/01/29 14:03:00 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ bool get_abs_path(char **cmd, char **envp)
 			}
 			i++;
 		}
+
 		if (path == NULL)
 			return (false);
 		path_split = ft_split(path, ':');
@@ -95,6 +96,7 @@ bool get_abs_path(char **cmd, char **envp)
 				break;
 			free(bin);
 			bin = NULL;
+			index++;
 
 		}
 		free_array(path_split);
