@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/01/29 13:57:39 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/01/30 14:24:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,13 @@ void	built_in_echo(char **cmd)
 	else if ((strcmp(cmd[1], "-n")))
 		ft_printf("%s\n", cmd[1]);
 }
-/*
+
 void	built_in_export(char **cmd)
 {
-	int i;
-
 	if (cmd[1] == NULL)
 		ft_display_export();
-	if (ft_chr(cmd[1], '=') == 1)
+	else if (ft_chr(cmd[1], '=') == 1)
 		ft_add_env_export(cmd[1], 2);
+	else if (ft_chr(cmd[1], '=') == 0)
+		ft_add_env_export(cmd[1],1);
 }
-*/

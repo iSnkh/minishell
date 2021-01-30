@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/27 15:34:29 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/01/30 14:24:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	built_in_env(void);
 void 	exec_built_in(char **built_in);
 bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd);
-
+void	ft_display_export();
+void	ft_add_env_export(char *var, int id);
+int		ft_env_size(t_env *env);
+int		ft_chr(char *str, char c);
 void	shell_loop();
 #endif

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/01/29 15:30:50 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/01/30 14:26:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void exec_built_in(char **built_in)
         built_in_env();
     else if (!strcmp(built_in[0], "echo"))
         built_in_echo(built_in);
+    else if (!strcmp(built_in[0], "export"))
+        built_in_export(built_in);
 }
 
 
