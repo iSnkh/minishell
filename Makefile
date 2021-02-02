@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/01/27 15:30:10 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/02/02 10:24:58 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS			=		\
 						main.c \
 						$(addprefix env/, init_env.c) \
 						$(addprefix parser/, parser.c) \
-						$(addprefix reader/, reader.c) \
+						$(addprefix shell/, loop.c) \
 						$(addprefix utils/, global_utils.c) \
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))

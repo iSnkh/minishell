@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_len.c                                    :+:      :+:    :+:   */
+/*   rules.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/03 05:25:25 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 17:17:25 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/02/02 14:25:55 by amonteli          #+#    #+#             */
+/*   Updated: 2021/02/02 14:26:40 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchr_len(const char *s, int c)
-{
-	int		count;
+#include "minishell.h"
 
-	count = -1;
-	while (s[++count])
-		if (s[count] == c)
-			return (count);
-	if (s[count] == c)
-		return (count);
-	return (0);
+int			check_quotes(char *line)
+{
+
+}
+
+int			validate_line(char *line)
+{
+	return (check_quotes(line));
 }
