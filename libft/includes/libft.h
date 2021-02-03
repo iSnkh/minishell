@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 14:03:52 by amonteli          #+#    #+#             */
-/*   Updated: 2020/10/13 21:30:13 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 12:14:33 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,12 @@ char				*ft_utoa_base(unsigned int n, char *base);
 
 void				ft_clear_2d_tabs(void **tab);
 char				**ft_copy_2d_tabs(char **tab);
+
+/*
+** 3 feb. 2021
+**	add: ft_strndup
+*/
+
+char				*ft_strndup(const char *s, int n);
 
 #endif

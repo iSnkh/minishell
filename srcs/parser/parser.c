@@ -6,54 +6,23 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 17:27:47 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 10:42:22 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: CLEAN THIS SHIT
-int		tokenize_quote(char *line)
-{
-	int		count;
-	int		flags;
-	char	*str;
-
-	flags = 0;
-	flags |= MS_QUOTES;
-	if (!ft_strchr(line, '\''))
-	{
-		// TODO: ERROR
-		ft_printf("error invaldi quotes");
-		exit(-1);
-	}
-	count = ft_strchr(line, '\'') - (line);
-	str = ft_substr(line, 0, count);
-	ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
-	return (count + 1);
-}
-
-void	tokenize(char *line)
-{
-	int		i;
-	int		flags;
-
-	i = 0;
-	flags = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			i += tokenize_quote(line + i + 1);
-		}
-		i++;
-	}
-}
-
 void 	*lstmap_f(void *content)
 {
 	t_cmd	*cmd = (t_cmd*)content;
 	// ft_printf("cmd = {%s}\n", cmd->cmd);
+}
+
+void	*format_tokens(void *content)
+{
+	t_token	*token = (t_token *)content;
+
+
 }
 
 void	*print_tokens(void *content)

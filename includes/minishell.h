@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 16:37:30 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 10:42:16 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,8 @@ void	shell_loop();
 void	clear_console();
 t_cmd	*create_cmd(char *command);
 t_token	*create_token(char *token, int flags);
+
+// tokenizer.c
+void	tokenize(char *line);
 
 #endif
