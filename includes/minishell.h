@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/30 14:24:08 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 15:47:29 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 typedef struct		s_env
 {
 		char				*var;
-		char				*var_exprt;
 		struct s_env		*next;
 }					t_env;
 
@@ -51,7 +50,9 @@ bool	get_abs_path(char **cmd, char **envp);
 
 // built-in
 
+void 	ft_print_export(char *var);
 void	built_in_export(char **cmd);
+void 	built_in_unset(char *cmd);
 void	built_in_cd(char *path);
 char	*built_in_pwd(void);
 void	built_in_env(void);
@@ -59,8 +60,11 @@ void 	exec_built_in(char **built_in);
 bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd);
 void	ft_display_export();
-void	ft_add_env_export(char *var, int id);
+void	ft_add_env_export(char *var);
 int		ft_env_size(t_env *env);
 int		ft_chr(char *str, char c);
+int 	ft_check_env(char *var,t_env *tmp);
+char 	*ft_trim(char *str, char c);
+
 void	shell_loop();
 #endif

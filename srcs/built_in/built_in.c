@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/01/30 14:24:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 15:54:00 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	built_in_env(void)
 	tmp = first;
 	while (tmp)
 	{
-		ft_printf("%s\n", tmp->var);
+		if(ft_chr(tmp->var,'='))
+			ft_printf("%s\n", tmp->var);
 		tmp = tmp->next;
 	}
 }
@@ -80,8 +81,6 @@ void	built_in_export(char **cmd)
 {
 	if (cmd[1] == NULL)
 		ft_display_export();
-	else if (ft_chr(cmd[1], '=') == 1)
-		ft_add_env_export(cmd[1], 2);
-	else if (ft_chr(cmd[1], '=') == 0)
-		ft_add_env_export(cmd[1],1);
+	else if (cmd[1])
+		ft_add_env_export(ft_trim(cmd[1],34));
 }
