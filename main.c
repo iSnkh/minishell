@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/08 15:44:26 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 14:49:03 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool is_built_in(char *cmd)
 {
-    const char  *built_in[]= {"cd", "pwd", "env","echo","export", NULL};
+    const char  *built_in[]= {"cd", "pwd", "env","echo","export","unset", NULL};
     int         i;
 
     i = 0;
@@ -42,6 +42,8 @@ void exec_built_in(char **built_in)
         built_in_echo(built_in);
     else if (!strcmp(built_in[0], "export"))
         built_in_export(built_in);
+    else if (!strcmp(built_in[0], "unset"))
+        built_in_unset(built_in);
 }
 
 
@@ -67,7 +69,8 @@ int main(int argc, char **argv, char **envp)
     {
         cmd = ft_split(buffer, ' ');
         if (cmd[0] == NULL)
-            ft_printf("Command not found\n");
+            ft_printf("");
+           // ft_printf("Command not found\n");
         else if (is_built_in(cmd[0]) == true)
             exec_built_in(cmd);
         else

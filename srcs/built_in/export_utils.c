@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/08 16:34:51 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 16:50:37 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,27 @@ char *ft_trim(char *str, char c)
 	dst[j] = '\0';
 	return(dst);
 }
+
+void ft_joinvar(char *var, t_env *tmp)
+{
+	int i;
+	
+	puts("ok");
+	i = ft_chr(var,'=');
+	i--;
+	while (tmp)
+	{
+		if (ft_strncmp(var,tmp->var,i) == 0)
+		{
+			tmp->var = ft_strjoin(tmp->var,var+i+2);
+			printf("%s\n",tmp->var);
+			break;
+		}		
+		tmp = tmp->next;
+	}
+
+}
+
 
 
 
@@ -91,9 +112,9 @@ int ft_chr(char *str, char c)
     int i;
 
     i = 0;
-    while(str[i])
+    while (str[i])
     {
-        if(str[i] == c)
+        if (str[i] == c)
             return(i);
         i++;
     }
@@ -106,9 +127,11 @@ int	ft_check_env(char *var,t_env *tmp)
     
 
     len = ft_chr(var,'=');
+	if(var[len - 1] == '+')
+		len--; 
 	while (tmp)
 	{
-		if(ft_strncmp(var,tmp->var,len) == 0)
+		if (ft_strncmp(var,tmp->var,len) == 0)
 				return(1);
 		tmp = tmp->next;
 	}
@@ -119,11 +142,10 @@ void ft_change_var(char *var,t_env *tmp)
 {
 	int len;
     
-
     len = ft_chr(var,'=');
 	while (tmp)
 	{
-		if(ft_strncmp(var,tmp->var,len) == 0)
+		if (ft_strncmp(var,tmp->var,len) == 0)
 		{
 			free(tmp->var);
 			tmp->var = ft_strdup(var);
@@ -141,7 +163,12 @@ void ft_add_env_export(char *var)
     tmp = first;
     last = NULL;
 	if (ft_check_env(var, tmp))
-		ft_change_var(var,tmp);
+		if (var[ft_chr(var,'=') - 1] == '+')
+			ft_joinvar(var,tmp);
+		else if(var[ft_chr(var,'=') - 1] != '+' && ft_chr(var,'+') < ft_chr(var,'='))
+			ft_printf("minishell: export: `%s': not a valid identifier\n",var);
+		else
+			ft_change_var(var,tmp);
 	else
 	{
 		tmp = first;
@@ -149,7 +176,7 @@ void ft_add_env_export(char *var)
         	return ;
     	last->var = ft_strdup(var);
     	last->next = NULL;
-   		while(tmp->next)
+   		while (tmp->next)
         	tmp= tmp->next;
     	tmp->next = last;
 	}

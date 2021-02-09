@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/08 15:47:29 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 16:45:10 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ bool	get_abs_path(char **cmd, char **envp);
 
 // built-in
 
+void	ft_joinvar(char *var, t_env *tmp);
 void 	ft_print_export(char *var);
 void	built_in_export(char **cmd);
-void 	built_in_unset(char *cmd);
+void 	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
 char	*built_in_pwd(void);
 void	built_in_env(void);
@@ -65,6 +66,8 @@ int		ft_env_size(t_env *env);
 int		ft_chr(char *str, char c);
 int 	ft_check_env(char *var,t_env *tmp);
 char 	*ft_trim(char *str, char c);
+void 	ft_putstrn(char *var, int len);
+int		ft_check_correct_var(char *var);
 
 void	shell_loop();
 #endif
