@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/03 10:42:22 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 13:54:37 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*print_tokens(void *content)
 {
 	t_token	*token = (t_token *)content;
 
-	ft_printf("token = {%s}\n", token->token);
+	ft_printf("flags = {%d}, token = {%s}\n", token->flags, token->token);
 }
 
 void		parse(char *line)
@@ -38,7 +38,11 @@ void		parse(char *line)
 	int		i;
 
 	i = 0;
-	tokenize(line);
+	if (tokenize(line) == -1)
+	{
+		ft_printf("Error on parsing lines...");
+		return;
+	}
 	ft_lstmap(ms->tokens, &print_tokens, NULL);
 	return;
 
