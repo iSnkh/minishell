@@ -6,11 +6,37 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:41:23 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/03 13:32:56 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 12:11:44 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_token(char *token, int size, int flags)
+{
+	ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(ft_strndup(token, size), flags)));
+}
+
+void	add_char_token(char token, int flags)
+{
+	char	*str;
+
+	str = ft_calloc(2, sizeof(char));
+	str[0] = token;
+	ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
+}
+
+int		apply_slash(char *line, int index)
+{
+	int		flags;
+
+	flags = 0;
+	flags |= MS_SLASH;
+	if (!line[index + 1])
+		return (-1);
+	add_char_token(line[index + 1], flags);
+	return (1);
+}
 
 int		tokenize_quote(char *line)
 {
@@ -46,91 +72,48 @@ int		tokenize_dquote(char *line)
 	return (count + 1);
 }
 
-void	tokenizeefws(char *line)
-{
-	int		i;
-	int		istr;
-	int		ret;
-	char	*str;
-
-	i = 0;
-	istr = 0;
-	str = calloc(sizeof(char), ft_strlen(line));
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			ret = tokenize_quote(line + i + 1);
-			if (ret < 0)
-			{
-				ft_printf("failed to read quotes\n");
-				return;
-			}
-			i = i + ret + 1;
-		}
-		if (line[i] == '"')
-		{
-			ret = tokenize_dquote(line + i + 1);
-			if (ret < 0)
-			{
-				ft_printf("failed to read quotes\n");
-				return;
-			}
-			i = i + ret + 1;
-		}
-		else if (line[i])
-		{
-			str[istr] = line[i];
-			i++;
-		}
-	}
-}
-
-int		found_escape_char(char *line)
-{
-	if (ft_strchr(line, '\\')) // has backslash
-	{
-		if (*line + 1 != '\0' && (*line + 1 == '\'' || *line + 1 == '"'))
-			return (0);
-	}
-	if (ft_strchr(line, '\'')) // has quote
-	{
-		return (1);
-	}
-	if (ft_strchr(line, '"'))
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int		jump_to_escaped_char(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'' || line[i] == '"')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 void	tokenize(char *line)
 {
-	// one token if all doesn't contains escape char
-	if (!ft_strchr(line, '\'') && !ft_strchr(line, '"') && !ft_strchr(line, '\\'))
-		return (ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(ft_strdup(line), 0))));
+	int		count;
+	int		ret;
+	int		flags;
 
-	// while token found like ' " \ loop
-	while(found_escape_char(line))
+	count = 0;
+	ret = 0;
+	while (line[count])
 	{
-		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(ft_strndup(line, ft_strchr_len(line, '\'')), 0)));
-		ft_printf("found escaped token ");
-		ft_printf("found at %d\n", jump_to_escaped_char(line));
-		line = line + jump_to_escaped_char(line) + 1;
+		if (line[count] == '\\')
+		{
+			if (apply_slash(line, count) == -1)
+			{
+				ft_printf("error\n");
+				exit(-1); // TODO: HERE CLEAN EXIT
+			}
+			count += 1;
+		}
+		else if (line[count] == '\'')
+		{
+			ret = tokenize_quote(line + count + 1);
+			if (ret < 0)
+			{
+				ft_printf("failed to read quotes\n");
+				return;
+			}
+			count += ret;
+		}
+		else if (line[count] == '"')
+		{
+			ret = tokenize_dquote(line + count + 1);
+			if (ret < 0)
+			{
+				ft_printf("failed to read quotes\n");
+				return;
+			}
+			count += ret;
+		}
+		else
+			add_char_token(line[count], 0);
+		count++;
 	}
 }
 
