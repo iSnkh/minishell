@@ -3,37 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/10 12:58:13 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
+/*   Updated: 2021/02/17 15:52:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+#include <errno.h>
 
-int		main(int argc, char **args, char **env)
+bool is_built_in(char *cmd)
 {
-	// ft_printf("argc: %d", argc);
+    const char  *built_in[]= {"cd", "pwd", "env", "echo", "export", "unset", NULL};
+    int         i;
 
-	// int i;
-	// while (env[i])
-		// ft_printf("{%s}\n", env[i++]);
+    i = 0;
 
-	char *line;
-	char *cmd;
-	int ret;
+    while(built_in[i])
+    {
+        
+        if(!strcmp(built_in[i], cmd))
+            return (true);
+        i++;
+    }
+    return (false);
+}
 
-	ret = 0;
-	line = ft_calloc(1, sizeof(char));
-	ft_printf("\033[H\033[J");
-	ft_printf("[minishell] >");
+void exec_built_in(char **built_in)
+{
+    if (!strcmp(built_in[0], "pwd"))
+        ft_printf("%s\n",ft_get_env_var("PWD="));
+    else if (!strcmp(built_in[0], "cd"))
+        built_in_cd(built_in[1]);
+    else if (!strcmp(built_in[0], "env"))
+        built_in_env();
+    else if (!strcmp(built_in[0], "echo"))
+        built_in_echo(built_in);
+    else if (!strcmp(built_in[0], "export"))
+        built_in_export(built_in);
+    else if (!strcmp(built_in[0], "unset"))
+        built_in_unset(built_in);
+   /* else if (!strcmp(built_in[0], "exit"))
+        built_in_exit(built_in);*/
+}
 
-	cmd = ft_strdup("");
-	while (get_next_line(1, &line))
-	{
-		printf("line={%s}\n", line);
-		cmd = ft_strjoin(cmd, line);
-		printf("cmd={%s}\n", cmd);
-	}
+
+
+int main(int argc, char **argv, char **envp)
+{
+    first = NULL;
+    char *buffer = NULL;
+    size_t buf_size = 2048;
+    char **cmd = NULL;
+    char **env = NULL;
+
+    ft_dup_env(envp);
+    (void)argc;
+    (void)argv;
+    if (!(buffer = (char *)ft_calloc(sizeof(char), buf_size)))
+    {
+        strerror(errno);
+        return (EXIT_FAILURE);
+    }
+    write(1,"minishell> ",11);
+    while (get_next_line(0, &buffer) > 0)
+    {
+        cmd = ft_split(buffer, ' ');
+        if (cmd[0] == NULL)
+            ft_printf("");
+           // ft_printf("Command not found\n");
+        else if (is_built_in(cmd[0]) == true)
+            exec_built_in(cmd);
+        else
+        {
+
+            env = ft_lst_to_array();
+            if(get_abs_path(cmd,env) == true)
+                ft_exec_cmd(cmd,env);
+            else
+                ft_printf("Commande not found\n");
+            free(env);
+            env = NULL;
+        }
+        write(1,"minishell> ",11);
+        free_array(cmd);
+    }
+    free_lst();
+    printf("Bye \n");
+    free(buffer);
+    return(0);
 }
