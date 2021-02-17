@@ -6,7 +6,7 @@
 #    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/01/11 17:13:24 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/02/17 15:52:05 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,18 @@ INC_DIR			=		includes
 
 HEADERS			=		includes/minishell.h
 
-CC				=		clang-9
+CC				=		gcc
 
 CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \
 						$(addprefix reader/, reader.c) \
-						$(addprefix parser/, parser.c) \
+						$(addprefix parser/, parser.c ) \
 						$(addprefix utils/, global_utils.c) \
+						$(addprefix built_in/, built_in.c export_utils.c export_utils2.c unset.c ) \
+						$(addprefix env/, init_env.c) \
+
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
