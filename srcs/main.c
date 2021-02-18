@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 14:28:43 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 17:56:20 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	minishell(char **env)
 
 int		main(int argc, char **args, char **env)
 {
+	(void)args;
 	if (argc != 1)
 		printf("error please call ./minishell");
 	minishell(env);

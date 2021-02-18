@@ -6,24 +6,11 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/16 13:54:37 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 17:59:29 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void 	*lstmap_f(void *content)
-{
-	t_cmd	*cmd = (t_cmd*)content;
-	// ft_printf("cmd = {%s}\n", cmd->cmd);
-}
-
-void	*format_tokens(void *content)
-{
-	t_token	*token = (t_token *)content;
-
-
-}
 
 void	*print_tokens(void *content)
 {
@@ -34,7 +21,6 @@ void	*print_tokens(void *content)
 
 void		parse(char *line)
 {
-	char	**cmds;
 	int		i;
 
 	i = 0;

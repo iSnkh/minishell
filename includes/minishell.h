@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/16 13:53:26 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 17:59:01 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,15 @@ t_token	*create_token(char *token, int flags);
 
 // tokenizer.c
 int		tokenize(char *line);
+
+// parser.c
+void		parse(char *line);
+
+// tokenizer_utils.c
+int		tokenize_quote(char *line);
+int		tokenize_dquote(char *line);
+int		has_to_tokenize(char *line);
+int		get_len_to_token(char *line);
+
 
 #endif

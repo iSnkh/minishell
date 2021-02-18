@@ -17,3 +17,8 @@ parsing:
 	- split a chaque si c'est pas escaper (backslash escape, quotes aussi et dquotes)
 	- replace all $ par les env (a-Z,0-9,_)
 	- double quotes
+
+
+
+ROADMAP ->
+	tokenize all quoted or double quoted string skipping \

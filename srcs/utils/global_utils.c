@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/16 13:48:01 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 17:58:35 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ t_token	*create_token(char *token, int flags)
 	if (flags)
 		lst->flags = flags;
 	else
-		lst->flags = NULL;
+		lst->flags = 0;
 	return (lst);
 }
