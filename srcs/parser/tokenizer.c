@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:41:23 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 15:22:21 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 17:32:17 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	tokenize(char *line)
 	{
 		if (ft_strlen(line) > 0 && get_len_to_token(line) > 0 && get_len_to_token(line) != -1)
 			add_token(line, get_len_to_token(line), 0);
-		*line = *line + get_len_to_token(line);
+		line = line + get_len_to_token(line);
 		if (*line == '\\')
 		{
 			if (apply_slash(line) == -1)
@@ -147,52 +147,6 @@ int	tokenize(char *line)
 		add_token(line, ft_strlen(line), 0);
 	return (1);
 }
-
-// void	tokenizev1(char *line)
-// {
-// 	int		count;
-// 	int		ret;
-// 	int		flags;
-
-// 	count = 0;
-// 	ret = 0;
-// 	while (line[count])
-// 	{
-// 		if (line[count] == '\\')
-// 		{
-// 			if (apply_slash(line + count) == -1)
-// 			{
-// 				ft_printf("error\n");
-// 				exit(-1); // TODO: HERE CLEAN EXIT
-// 			}
-// 			count += 1;
-// 		}
-// 		else if (line[count] == '\'')
-// 		{
-// 			ret = tokenize_quote(line + count + 1);
-// 			if (ret < 0)
-// 			{
-// 				ft_printf("failed to read quotes\n");
-// 				return;
-// 			}
-// 			count += ret;
-// 		}
-// 		else if (line[count] == '"')
-// 		{
-// 			ret = tokenize_dquote(line + count + 1);
-// 			if (ret < 0)
-// 			{
-// 				ft_printf("failed to read quotes\n");
-// 				return;
-// 			}
-// 			count += ret;
-// 		}
-// 		else
-// 			add_char_token(line[count], 0);
-// 		count++;
-// 	}
-// }
-
 
 /**
  * d'abord tokenizer les quotes et les flags
