@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:45:10 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 16:20:33 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 15:04:03 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	shell_loop(void)
 	line = ft_calloc(1, sizeof(char));
 	while (get_next_line(0, &line))
 	{
-		// ft_printf("[minishell] >");
 		parse(line);
+		// exec
+		// clear tokens
+		ft_printf("[minishell] >");
+
 		// ft_printf("wesh?");
 	}
 }

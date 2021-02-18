@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:41:23 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/16 13:55:41 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 15:22:21 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int		tokenize_quote(char *line)
 
 	flags = 0;
 	flags |= MS_QUOTES;
-	if (!ft_strchr(line, '\''))
+	if (!ft_strchr(line, '\'') )
 		return (-1);
 	count = ft_strchr(line, '\'') - (line);
 	str = ft_substr(line, 0, count);
-	if (ft_strlen(str))
+	if (ft_strlen(str) > 0)
 		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
-	return (count + 1);
+	return (count + 2);
 }
 
 int		tokenize_dquote(char *line)
@@ -67,9 +67,9 @@ int		tokenize_dquote(char *line)
 		return (-1);
 	count = ft_strchr(line, '"') - (line);
 	str = ft_substr(line, 0, count);
-	if (ft_strlen(str))
+	if (ft_strlen(str) > 0)
 		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
-	return (count + 1);
+	return (count + 2);
 }
 
 int		has_to_tokenize(char *line)
@@ -92,6 +92,7 @@ int		get_len_to_token(char *line)
 	{
 		if (line[count] == '\\' || line[count] == '\'' || line[count] == '"')
 			return (count);
+		count++;
 	}
 	return (-1);
 }
@@ -109,7 +110,7 @@ int	tokenize(char *line)
 
 	while(has_to_tokenize(line))
 	{
-		if (ft_strlen(line) > 0)
+		if (ft_strlen(line) > 0 && get_len_to_token(line) > 0 && get_len_to_token(line) != -1)
 			add_token(line, get_len_to_token(line), 0);
 		*line = *line + get_len_to_token(line);
 		if (*line == '\\')
