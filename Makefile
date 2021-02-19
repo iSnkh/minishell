@@ -6,7 +6,7 @@
 #    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/02/17 15:52:05 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/02/19 09:07:35 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS			=		\
 						$(addprefix reader/, reader.c) \
 						$(addprefix parser/, parser.c ) \
 						$(addprefix utils/, global_utils.c) \
-						$(addprefix built_in/, built_in.c export_utils.c export_utils2.c unset.c ) \
+						$(addprefix built_in/, built_in.c export_utils.c export_utils2.c unset.c ft_built_exit.c) \
 						$(addprefix env/, init_env.c) \
 
 

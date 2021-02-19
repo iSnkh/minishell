@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/17 15:53:14 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/19 10:02:09 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,17 @@
 # include "../libft/includes/libft.h"
 
 
-typedef struct		s_env
+typedef struct				s_env
 {
 		char				*var;
 		struct s_env		*next;
-}					t_env;
+}							t_env;
+
+typedef struct				s_mshell
+{
+	int						ret;
+	int						ext;
+}							t_mshell;
 
 t_env *first;
 
@@ -55,9 +61,10 @@ void 	ft_print_export(char *var);
 void	built_in_export(char **cmd);
 void 	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
+void	built_in_exit(char **cmd, t_mshell *msh);
 char	*built_in_pwd(void);
 void	built_in_env(void);
-void 	exec_built_in(char **built_in);
+int 	exec_built_in(char **built_in, t_mshell *msh);
 bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd);
 void	ft_display_export();
