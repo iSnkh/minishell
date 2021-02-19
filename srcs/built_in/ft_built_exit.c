@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 08:31:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/19 09:58:12 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/19 10:18:59 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,9 @@
 void built_in_exit(char **cmd,t_mshell *msh)
 {
     ft_printf("exit\n");
-    msh->ret = ft_atoi(cmd[1]);
+    
+    if(cmd[1])
+        msh->ret = ft_atoi(cmd[1]);
+    else
+        msh->ret = 0;
 }
