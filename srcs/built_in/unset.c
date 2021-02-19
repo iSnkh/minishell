@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 13:36:00 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/09 17:23:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/19 10:15:03 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void built_in_unset(char **cmd)
                 previous->next = tmp->next;
                 free(to_remove);
                 to_remove = NULL;
+                break;
             }
         previous = tmp;
 		tmp = tmp->next;
