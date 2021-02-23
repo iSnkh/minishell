@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 17:59:29 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 10:53:26 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,3 @@ void		parse(char *line)
 	// }
 	// ft_lstmap(ms->cmds, &lstmap_f, NULL);
 }
-
-
-// dans le cas ou j'ai '\'' y'a deux quotes le truc c'est que y'en a trois donc il faut que je check un avant
-// si jamais c'est un backslash ou pas et si c'est un backslash remove le flag

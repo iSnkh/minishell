@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 17:59:01 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 10:48:15 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ typedef struct		s_cmd
 		char 			*cmd;
 		struct s_parser	*parser;
 }					t_cmd;
-
-typedef struct		s_parser
-{
-		int			flags;
-}					t_parser;
 
 typedef struct		s_token
 {
