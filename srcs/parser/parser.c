@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/23 10:53:26 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/24 11:36:19 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		parse(char *line)
 		return;
 	}
 	ft_lstmap(ms->tokens, &print_tokens, NULL);
+	// ft_lstclear(ms->tokens, free())
 	return;
 
 

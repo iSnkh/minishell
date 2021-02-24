@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:41:23 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 17:54:52 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/24 13:34:19 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		apply_slash(char *line)
 
 	flags = 0;
 	flags |= MS_SLASH;
-	if (!(line + 1))
+	if (!(line[1]))
 		return (-1);
-	add_char_token(*line + 1, flags);
+	add_char_token(line[1], flags);
 	return (1);
 }
 
@@ -58,10 +58,9 @@ int		tokenize(char *line)
 		{
 			if (apply_slash(line) == -1)
 			{
-				ft_printf("error\n");
-				exit(-1); // TODO: HERE CLEAN EXIT
+				ft_printf("error backslash\n");
 			}
-			line += 1;
+			line += 2;
 		}
 		else if (*line == '\'')
 		{

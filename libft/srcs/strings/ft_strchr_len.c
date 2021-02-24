@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 05:25:25 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/02 17:17:25 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 16:59:58 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int		ft_strchr_len(const char *s, int c)
 			return (count);
 	if (s[count] == c)
 		return (count);
-	return (0);
+	return (-1);
 }

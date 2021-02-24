@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"chrono": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"__bit_reference": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"unordered_map": "c"
 	}
 }
