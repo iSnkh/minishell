@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/23 10:48:15 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/06 16:19:50 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ enum
 	MS_DQUOTES = (1 << 1),
 	MS_PIPE = (1 << 2),
 	MS_SEP = (1 << 3),
-	MS_SLASH = (1 << 4)
+	MS_SLASH = (1 << 4),
+	MS_LREDIR = (1 << 5),
+	MS_RREDIR = (1 << 6),
 };
 
 typedef struct		s_ms
@@ -38,6 +40,11 @@ typedef struct		s_ms
 		struct s_list	*tokens;
 }					t_ms;
 
+typedef struct				s_env
+{
+		char				*var;
+		struct s_env		*next;
+}							t_env;
 
 typedef struct		s_cmd
 {

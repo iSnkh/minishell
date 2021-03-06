@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:41:23 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/24 13:34:19 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/06 16:10:08 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		tokenize(char *line)
 		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(line, 0)));
 		return (1);
 	}
-
 	while(has_to_tokenize(line))
 	{
 		if (ft_strlen(line) > 0 && get_len_to_token(line) > 0 && get_len_to_token(line) != -1)
@@ -57,9 +56,7 @@ int		tokenize(char *line)
 		if (*line == '\\')
 		{
 			if (apply_slash(line) == -1)
-			{
 				ft_printf("error backslash\n");
-			}
 			line += 2;
 		}
 		else if (*line == '\'')

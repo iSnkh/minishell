@@ -6,11 +6,34 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/24 11:36:19 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/06 16:32:37 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	flags_tokens()
+{
+	t_list *lst;
+
+	lst = ms->tokens;
+	while (lst)
+	{
+		t_token *tokenList;
+
+		tokenList = (t_token *)lst->content;
+		ft_printf("{%s}\n", tokenList->token);
+		if (!(tokenList->flags & MS_SLASH || tokenList->flags & MS_QUOTES || tokenList->flags & MS_DQUOTES))
+		{
+			if (!ft_strchr(tokenList->token, '\\'))
+			{
+				// TODO: la il trouve pas de backslash donc flags tout proprement
+			}
+			ft_printf("hello\n");
+		}
+		lst = lst->next;
+	}
+}
 
 void	*print_tokens(void *content)
 {
@@ -29,18 +52,18 @@ void		parse(char *line)
 		ft_printf("Error on parsing lines...");
 		return;
 	}
+
+	// ft_lstmap(ms->tokens, &token_cmds, NULL);
+	flags_tokens();
 	ft_lstmap(ms->tokens, &print_tokens, NULL);
 	// ft_lstclear(ms->tokens, free())
 	return;
-
-
-	// if (!(cmds = split_cmds(line)))
-	// 	ft_printf("parse error!");
-	// while (cmds[i])
-	// {
-	// 	parse_command(cmds[i]);
-	// 	ft_lstadd_back(&ms->cmds, ft_lstnew(create_cmd(cmds[i])));
-	// 	i++;
-	// }
-	// ft_lstmap(ms->cmds, &lstmap_f, NULL);
 }
+
+
+/*
+	tokenize quotes/double quotes/backslash
+
+
+
+*/
