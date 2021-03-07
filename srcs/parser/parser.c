@@ -6,11 +6,25 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/06 16:32:37 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 18:00:57 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	lst_replace(t_list *current, t_list *list)
+{
+	t_list	*next;
+
+	if (!current || !list)
+		return;
+	if (!current->next)
+	{
+		current->next = list;
+		return;
+	}
+
+}
 
 void	flags_tokens()
 {
@@ -27,9 +41,12 @@ void	flags_tokens()
 		{
 			if (!ft_strchr(tokenList->token, '\\'))
 			{
-				// TODO: la il trouve pas de backslash donc flags tout proprement
+				if (ft_strchr(tokenList->token, '>'))
+				{
+					lst_replace(lst, ft_lstnew(create_token("replaced", 0)));
+					ft_printf("hello\n");
+				}
 			}
-			ft_printf("hello\n");
 		}
 		lst = lst->next;
 	}
