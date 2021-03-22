@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/09 16:50:37 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/25 17:22:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void ft_joinvar(char *var, t_env *tmp)
 {
 	int i;
 	
-	puts("ok");
+
 	i = ft_chr(var,'=');
 	i--;
 	while (tmp)
@@ -59,16 +59,12 @@ void ft_joinvar(char *var, t_env *tmp)
 		if (ft_strncmp(var,tmp->var,i) == 0)
 		{
 			tmp->var = ft_strjoin(tmp->var,var+i+2);
-			printf("%s\n",tmp->var);
 			break;
 		}		
 		tmp = tmp->next;
 	}
 
 }
-
-
-
 
 void ft_print_export(char *var)
 {
@@ -79,17 +75,17 @@ void ft_print_export(char *var)
 	k = 0;
     while(var[i])
     {
-		 write(1,&var[i],1); 
+		 write(STDIN,&var[i],1); 
 		if(var[i] == '=' && k == 0)
 		{
-            ft_printf("%c",34);
+            ft_putstr_fd("\"",STDIN);
 			k = 1;
 		}
 		if(var[i + 1] == '\0' && k == 1)
-			ft_printf("%c",34);
+			ft_putstr_fd("\"\n",STDIN);
 		i++;
     }
-    write(1,"\n",1);
+    //write(1,"\n",1);
 }
 
 
@@ -100,7 +96,7 @@ void ft_display_export()
 	tmp = first;
 	while (tmp)
 	{
-		write(1,"declare -x ",11);
+		write(STDIN,"declare -x ",11);
         ft_print_export(tmp->var);
 		tmp = tmp->next;
 	}

@@ -6,19 +6,19 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:04:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/09 16:36:19 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/02/25 15:38:19 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_putstrn(char *var, int len)
+void ft_putstrn_fd(char *var, int len,int fd)
 {
     int i;
 
     i = 0;
     while(i < len)
-        write(1,&var[i++],1);
+        write(fd,&var[i++],1);
 }
 
 
@@ -41,9 +41,7 @@ int ft_check_correct_var(char *var)
             i++;
         else
         {
-            ft_printf("minishell: export: `");
-            ft_putstrn(var,len);
-            ft_printf("': not a valid identifier\n");
+            
             return(0);
         }   
     }

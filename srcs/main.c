@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/19 10:03:31 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 18:33:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,28 @@ int exec_built_in(char **built_in, t_mshell *msh)
     return(0);
 }
 
+void ft_excute(t_mshell *ms, char **cmd)
+{
+    char **env;
 
+    env = NULL;
+    if (cmd[0] == NULL)
+            ft_printf("");
+    else if (is_built_in(cmd[0]) == true)
+        ms->ext = exec_built_in(cmd, ms);
+    else
+    {
+        env = ft_lst_to_array();
+        if(get_abs_path(cmd,env) == true)
+            ft_exec_cmd(cmd,env);
+        else
+        {    
+            ft_printf("Commande not found\n");
+            free(env);
+            env = NULL;
+        }
+    }
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -60,11 +81,12 @@ int main(int argc, char **argv, char **envp)
     char *buffer = NULL;
     size_t buf_size = 2048;
     char **cmd = NULL;
-    char **env = NULL;
-    t_mshell msh;
+    //char **env = NULL;
+    t_mshell ms;
+    t_token *tokens;
 
-    msh.ret = 0;
-    msh.ext = 0;
+    tokens = NULL;
+    ft_init_mshell(&ms);
     ft_dup_env(envp);
     (void)argc;
     (void)argv;
@@ -73,14 +95,26 @@ int main(int argc, char **argv, char **envp)
         strerror(errno);
         return (EXIT_FAILURE);
     }
+    signal(SIGINT,&ft_signal_c);
+    signal(SIGQUIT,SIG_IGN);
     write(1,"minishell> ",11);
-    while (get_next_line(0, &buffer) > 0 && msh.ext != 1)
+    while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
     {
+
         cmd = ft_split(buffer, ' ');
-        if (cmd[0] == NULL)
+        int i = 0 ;
+        while(cmd[i])
+        {
+            ft_printf("cmd[%d] = %s\n",i,cmd[i]);
+            i++;
+        }
+   //     ft_parse_redir(cmd,&ms,tokens);
+     //   ft_redir(&ms,tokens);
+        ft_excute(&ms, cmd);
+       /* if (cmd[0] == NULL)
             ft_printf("");
         else if (is_built_in(cmd[0]) == true)
-            msh.ext = exec_built_in(cmd, &msh);
+            ms.ext = exec_built_in(cmd, &ms);
         else
         {
             env = ft_lst_to_array();
@@ -90,15 +124,18 @@ int main(int argc, char **argv, char **envp)
                 ft_printf("Commande not found\n");
             free(env);
             env = NULL;
-        }
-        if(msh.ext == 0)
+        }*/
+        if(ms.ext == 0)
             write(1,"minishell> ",11);
-        free_array(cmd);
-        if(msh.ext == 1)
+        if(ms.ext == 1)
             break;
+        free_array(cmd);
+        ft_clear_app(tokens,&ms);
     }
     free_lst();
+    
     printf("Bye \n");
     free(buffer);
-    return(msh.ret);
+    return(ms.ret);
 }
+

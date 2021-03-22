@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/09 16:35:26 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:18:00 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	built_in_env(void)
 	while (tmp)
 	{
 		if(ft_chr(tmp->var,'='))
-			ft_printf("%s\n", tmp->var);
+		{
+			ft_putstr_fd(tmp->var,STDIN);
+			ft_putstr_fd("\n",STDIN);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -82,10 +85,17 @@ void	built_in_export(char **cmd)
 	if (cmd[1] == NULL)
 		ft_display_export();
 	else if(ft_check_correct_var(ft_trim(cmd[1],34)) == 0)
-		return ;
+	{
+		ft_putstr_fd("minishell: export: `",STDERR);
+        ft_putstr_fd(cmd[1],STDERR);
+        ft_putstr_fd("': not a valid identifier\n",STDERR);
+	}
 	else if (cmd[1] && cmd[1][0] != '=')
 		ft_add_env_export(ft_trim(cmd[1],34));
-	else if (cmd[1][0] == '=')
-		ft_printf("minishell: export: `%s': not a valid identifier\n",cmd[1]);
-	
+	/*else if (cmd[1][0] == '=')
+	{
+		ft_putstr_fd("minishell: export: `",STDIN);
+        ft_putstr_fd(cmd[1],STDIN);
+        ft_putstr_fd("': not a valid identifier\n",STDIN);
+	}*/
 }

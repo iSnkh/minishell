@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_built_exit.c                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/19 08:31:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/22 18:33:17 by wperu            ###   ########lyon.fr   */
+/*   Created: 2021/02/28 14:49:04 by wperu             #+#    #+#             */
+/*   Updated: 2021/02/28 14:51:26 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void built_in_exit(char **cmd,t_mshell *msh)
+int ft_strcmp(const char *s1, const char *s2)
 {
-    ft_putstr_fd("exit\n",STDERR);
-    
-    if(cmd[1])
-        msh->ret = ft_atoi(cmd[1]);
-    else
-        msh->ret = 0;
-}
+    size_t i;
 
-void ft_signal_c(int sign)
-{
-    (void)sign;
-    ft_putstr_fd("\n",STDOUT);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
