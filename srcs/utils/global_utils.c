@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 17:58:35 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 10:49:41 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_cmd	*create_cmd(char *command)
 {
 	t_cmd	*lst;
 
-	if (!(lst = malloc(sizeof(t_cmd))))
+	lst = malloc(sizeof(t_cmd));
+	if (!lst)
 		return (NULL);
 	lst->cmd = command;
 	lst->parser = NULL;
@@ -32,7 +33,8 @@ t_token	*create_token(char *token, int flags)
 {
 	t_token	*lst;
 
-	if (!(lst = malloc(sizeof(t_token))))
+	lst = malloc(sizeof(t_token));
+	if (!lst)
 		return (NULL);
 	lst->token = token;
 	if (flags)
