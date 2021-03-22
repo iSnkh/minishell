@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 14:03:52 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/03 12:14:33 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:00:48 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,14 @@ char				**ft_copy_2d_tabs(char **tab);
 */
 
 char				*ft_strndup(const char *s, int n);
+
+/*
+** 22 mar. 2021
+**	add: ft_lst_append_after
+**	add: ft_lst_append_lists
+*/
+
+void				lst_append_lsts(t_list *current, t_list *list);
+void				lst_append_after(t_list *current, t_list *list);
 
 #endif

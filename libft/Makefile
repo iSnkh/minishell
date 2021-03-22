@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/12 14:02:26 by amonteli          #+#    #+#              #
-#    Updated: 2021/02/03 12:13:12 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/03/22 16:01:38 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS			=	includes/libft.h includes/ft_printf.h includes/get_next_line.h
 
 SRCS			=	\
 					$(addprefix io/ft_, putchar_fd.c putendl_fd.c putnbr_fd.c putstr_fd.c) \
-					$(addprefix lists/ft_lst, add_back.c add_front.c clear.c delone.c iter.c last.c map.c new.c size.c) \
+					$(addprefix lists/ft_lst, add_back.c add_front.c clear.c delone.c iter.c last.c map.c new.c size.c _append.c _append_lists.c) \
 					$(addprefix memory/ft_, bzero.c calloc.c memccpy.c memchr.c memcmp.c memcpy.c memmove.c memset.c) \
 					$(addprefix numbers/ft_, atoi.c itoa.c numlen.c lentostr.c lentochr.c ltoa.c lltoa_base.c ulltoa_base.c utoa.c utoa_base.c) \
 					$(addprefix strings/ft_, split.c strchr.c strdup.c strjoin.c strlcat.c strlcpy.c strlen.c strmapi.c strncmp.c strncpy.c strnstr.c strrchr.c strtrim.c substr.c strbaselen.c strchr_len.c strndup.c)	\
