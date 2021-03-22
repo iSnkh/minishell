@@ -6,25 +6,11 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/07 18:00:57 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 18:43:13 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	lst_replace(t_list *current, t_list *list)
-{
-	t_list	*next;
-
-	if (!current || !list)
-		return;
-	if (!current->next)
-	{
-		current->next = list;
-		return;
-	}
-
-}
 
 void	flags_tokens()
 {
@@ -36,16 +22,21 @@ void	flags_tokens()
 		t_token *tokenList;
 
 		tokenList = (t_token *)lst->content;
-		ft_printf("{%s}\n", tokenList->token);
 		if (!(tokenList->flags & MS_SLASH || tokenList->flags & MS_QUOTES || tokenList->flags & MS_DQUOTES))
 		{
 			if (!ft_strchr(tokenList->token, '\\'))
 			{
 				if (ft_strchr(tokenList->token, '>'))
 				{
-					lst_replace(lst, ft_lstnew(create_token("replaced", 0)));
-					ft_printf("hello\n");
+					// lst_append_after(lst, ft_lstnew(create_token("appended", 0)));
+					t_list *lst2;
+					lst2 = ft_lstnew(create_token("sa", 0));
+					ft_lstadd_back(&lst2, ft_lstnew(create_token("lut", 0)));
+
+					lst_append_lsts(lst, lst2);
 				}
+				if (ft_strchr(tokenList->token, '$'))
+					replace_env(lst);
 			}
 		}
 		lst = lst->next;
@@ -56,7 +47,39 @@ void	*print_tokens(void *content)
 {
 	t_token	*token = (t_token *)content;
 
-	ft_printf("flags = {%d}, token = {%s}\n", token->flags, token->token);
+	ft_printf("[%d] {%s}\n", token->flags, token->token);
+}
+
+int		split_semi_colon(int splitter)
+{
+
+}
+
+int		has_semi_colon()
+{
+	t_list	*list;
+	t_token *tokenLst;
+	int		semi_colons;
+	int		count;
+
+	semi_colons = 0;
+	count = 0;
+	list = ms->tokens;
+	while (list)
+	{
+		tokenLst = (t_token *)list->content;
+		if (!(tokenLst->flags & MS_SLASH || tokenLst->flags & MS_QUOTES || tokenLst->flags & MS_DQUOTES))
+		{
+			while (tokenLst->token[count])
+			{
+				if (tokenLst->token[count] == ';')
+					semi_colons++;
+				count++;
+			}
+		}
+		list = list->next;
+	}
+	return (semi_colons);
 }
 
 void		parse(char *line)
@@ -69,11 +92,14 @@ void		parse(char *line)
 		ft_printf("Error on parsing lines...");
 		return;
 	}
-
-	// ft_lstmap(ms->tokens, &token_cmds, NULL);
-	flags_tokens();
-	ft_lstmap(ms->tokens, &print_tokens, NULL);
-	// ft_lstclear(ms->tokens, free())
+	if (!has_semi_colon())
+		ms->cmds = ft_lstnew(ms->tokens); // no semi colons not need to split
+	else
+	{
+		ft_printf("has semi colon inside! \n");
+		flags_tokens();
+	}
+	ft_lstmap(ms->cmds->content, &print_tokens, NULL);
 	return;
 }
 

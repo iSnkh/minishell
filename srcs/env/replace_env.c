@@ -6,13 +6,13 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 16:51:38 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/24 17:02:41 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 11:16:57 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			replace_env()
+int			replace_env2()
 {
 
 }

@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/06 16:19:50 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:06:58 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ enum
 	MS_SLASH = (1 << 4),
 	MS_LREDIR = (1 << 5),
 	MS_RREDIR = (1 << 6),
+	MS_ENV = (1 << 7)
 };
 
 typedef struct		s_ms
@@ -83,5 +84,7 @@ int		tokenize_dquote(char *line);
 int		has_to_tokenize(char *line);
 int		get_len_to_token(char *line);
 
+// env_manager
+void	replace_env(t_list *list);
 
 #endif

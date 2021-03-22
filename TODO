@@ -14,11 +14,13 @@ export peut commencer par un underscore
 
 parsing:
 
-	- split a chaque si c'est pas escaper (backslash escape, quotes aussi et dquotes)
-	- replace all $ par les env (a-Z,0-9,_)
 	- double quotes
-
-
+	- replace all $ par les env (a-Z,0-9,_)
+	- split a chaque si c'est pas escaper (backslash escape, quotes aussi et dquotes)
 
 ROADMAP ->
 	tokenize all quoted or double quoted string skipping \
+	split by ;
+	replace all env vars
+	split by space and format them
+	exec
