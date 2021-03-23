@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/23 11:38:25 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 17:34:54 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <math.h>
 # include <stdbool.h>
 # include "../libft/includes/libft.h"
+
+#define CMD_SEP "|><;"
 
 enum					e_flags_token
 {
@@ -38,7 +40,8 @@ enum					e_flags_cmds
 {
 	CMD_LREDIR = (1 << 0),
 	CMD_RREDIR = (1 << 1),
-	CMD_PIPE = (1 << 2)
+	CMD_PIPE = (1 << 2),
+	CMD_PARSED = (1 << 3)
 };
 
 typedef struct			s_ms
@@ -56,7 +59,8 @@ typedef struct				s_env
 
 typedef struct				s_cmd
 {
-		char 				*cmd;
+		char 				*cmd_name;
+		struct s_list		*args;
 		int					flags;
 }							t_cmd;
 
@@ -76,8 +80,10 @@ void	shell_loop();
 
 // global_utils.c
 void	clear_console();
-t_cmd	*create_cmd(char *command);
+// t_cmd	*create_cmd(char *command);
 t_token	*create_token(char *token, int flags);
+int		is_escaped(t_token *token);
+int		is_cmd_sep(char c);
 
 // tokenizer.c
 int		tokenize(char *line);
@@ -93,5 +99,8 @@ int		get_len_to_token(char *line);
 
 // env_manager
 void	replace_env(t_list *list);
+
+// commands/utils.c
+t_cmd	*create_cmd(t_list *tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/18 17:56:20 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 17:19:32 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	init_struct(char **env)
 {
-	if (!(ms = malloc(sizeof(t_ms))))
+	ms = malloc(sizeof(t_ms));
+	if (!ms)
 	{
-		// TODO: clean exit
 		printf("ERROR TO MALLOC");
-		return;
+		return ;
 	}
 	ms = malloc(sizeof(t_ms));
 	ms->env = env;

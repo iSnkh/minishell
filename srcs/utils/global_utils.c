@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/22 10:49:41 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 16:28:33 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,6 @@
 void	clear_console(void)
 {
 	ft_printf("\033[H\033[J");
-}
-
-t_cmd	*create_cmd(char *command)
-{
-	t_cmd	*lst;
-
-	lst = malloc(sizeof(t_cmd));
-	if (!lst)
-		return (NULL);
-	lst->cmd = command;
-	lst->parser = NULL;
-	return (lst);
 }
 
 t_token	*create_token(char *token, int flags)
@@ -42,4 +30,18 @@ t_token	*create_token(char *token, int flags)
 	else
 		lst->flags = 0;
 	return (lst);
+}
+
+int		is_escaped(t_token *token)
+{
+	if (token->flags & MS_SLASH || token->flags & MS_QUOTES || token->flags & MS_DQUOTES)
+		return (1);
+	return (0);
+}
+
+int		is_cmd_sep(char c)
+{
+	if (ft_strchr(CMD_SEP, c))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/23 17:21:02 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 18:47:42 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,20 @@ void	*print_commands(void *content)
 {
 	t_cmd	*cmd = (t_cmd *)content;
 
-	ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
-	ft_printf(">> Flags = [%d]\n", cmd->flags);
-	ft_lstmap(cmd->args, &print_tokens, NULL);
-	ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
+	if (cmd->flags & CMD_PARSED)
+	{
+		ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
+		ft_printf(">> Flags = [%d]\n", cmd->flags);
+		ft_lstmap(cmd->args, &print_tokens, NULL);
+		ft_printf("========================\n");
+	}
+	else
+	{
+		ft_printf("=========-[Unknown]-=========\n");
+		ft_printf(">> Flags = [%d]\n", cmd->flags);
+		ft_lstmap(cmd->args, &print_tokens, NULL);
+		ft_printf("========================\n");
+	}
 }
 
 int		split_semi_colon(int splitter)
@@ -76,6 +86,7 @@ int		split_semi_colon(int splitter)
 		{
 			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
 		}
+
 		list = list->next;
 	}
 
@@ -96,16 +107,16 @@ int		count_seps()
 	int		count;
 
 	separators = 0;
-	count = 0;
 	list = ms->tokens;
 	while (list)
 	{
 		tokenLst = (t_token *)list->content;
 		if (!is_escaped(tokenLst))
 		{
+			count = 0;
 			while (tokenLst->token[count])
 			{
-				if (is_cmd_sep(tokenLst->token[count]))
+				if (is_cmd_sep(tokenLst->token[count]) && count > 1 && tokenLst->token[count - 1] != '>')
 					separators++;
 				count++;
 			}
