@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/22 16:06:58 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 11:38:25 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include "../libft/includes/libft.h"
 
-enum
+enum					e_flags_token
 {
 	MS_QUOTES = (1 << 0),
 	MS_DQUOTES = (1 << 1),
@@ -34,12 +34,19 @@ enum
 	MS_ENV = (1 << 7)
 };
 
-typedef struct		s_ms
+enum					e_flags_cmds
+{
+	CMD_LREDIR = (1 << 0),
+	CMD_RREDIR = (1 << 1),
+	CMD_PIPE = (1 << 2)
+};
+
+typedef struct			s_ms
 {
 		char			**env;
 		struct s_list	*cmds;
 		struct s_list	*tokens;
-}					t_ms;
+}						t_ms;
 
 typedef struct				s_env
 {
@@ -47,17 +54,17 @@ typedef struct				s_env
 		struct s_env		*next;
 }							t_env;
 
-typedef struct		s_cmd
+typedef struct				s_cmd
 {
-		char 			*cmd;
-		struct s_parser	*parser;
-}					t_cmd;
+		char 				*cmd;
+		int					flags;
+}							t_cmd;
 
-typedef struct		s_token
+typedef struct				s_token
 {
-		char		*token;
-		int			flags;
-}					t_token;
+		char				*token;
+		int					flags;
+}							t_token;
 
 t_ms	*ms;
 

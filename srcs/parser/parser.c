@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/22 18:50:09 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 11:25:46 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,18 @@ void	*print_tokens(void *content)
 
 int		split_semi_colon(int splitter)
 {
+	t_list	*list;
+	t_token *tokenLst;
 
+	list = ms->tokens;
+	while (list && splitter)
+	{
+		tokenLst = (t_token *)list->content;
+		if (!(tokenLst->flags & MS_SLASH || tokenLst->flags & MS_QUOTES || tokenLst->flags & MS_DQUOTES))
+		{
+			// if ()
+		}
+	}
 }
 
 int		has_semi_colon()
@@ -100,6 +111,7 @@ void		parse(char *line)
 	else
 	{
 		ft_printf("has %d semi colon inside! \n", semi_colons);
+		split_semi_colon(semi_colons);
 		// TODO: SPLIT HERE BY ';'
 		// TODO: FLAGS TOKENS INSIDE ALL COMMANDS
 		// TODO: ARGS[0] => COMMANDS
