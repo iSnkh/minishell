@@ -6,11 +6,38 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/24 14:21:41 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 17:50:26 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	*print_tokens(void *content)
+{
+	t_token	*token = (t_token *)content;
+
+	ft_printf("[%d] {%s}\n", token->flags, token->token);
+}
+
+void	*print_commands(void *content)
+{
+	t_cmd	*cmd = (t_cmd *)content;
+
+	if (cmd->flags & CMD_PARSED)
+	{
+		ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
+		ft_printf(">> Flags = [%d]\n", cmd->flags);
+		ft_lstmap(cmd->args, &print_tokens, NULL);
+		ft_printf("========================\n");
+	}
+	else
+	{
+		ft_printf("=========-[Unknown]-=========\n");
+		ft_printf(">> Flags = [%d]\n", cmd->flags);
+		ft_lstmap(cmd->args, &print_tokens, NULL);
+		ft_printf("========================\n");
+	}
+}
 
 void	flags_tokens()
 {
@@ -43,32 +70,6 @@ void	flags_tokens()
 	}
 }
 
-void	*print_tokens(void *content)
-{
-	t_token	*token = (t_token *)content;
-
-	ft_printf("[%d] {%s}\n", token->flags, token->token);
-}
-
-void	*print_commands(void *content)
-{
-	t_cmd	*cmd = (t_cmd *)content;
-
-	if (cmd->flags & CMD_PARSED)
-	{
-		ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
-		ft_printf(">> Flags = [%d]\n", cmd->flags);
-		ft_lstmap(cmd->args, &print_tokens, NULL);
-		ft_printf("========================\n");
-	}
-	else
-	{
-		ft_printf("=========-[Unknown]-=========\n");
-		ft_printf(">> Flags = [%d]\n", cmd->flags);
-		ft_lstmap(cmd->args, &print_tokens, NULL);
-		ft_printf("========================\n");
-	}
-}
 
 int		split_semi_colon(int splitter)
 {
@@ -86,6 +87,11 @@ int		split_semi_colon(int splitter)
 		{
 			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
 		}
+		else
+		{
+
+		}
+
 		list = list->next;
 	}
 
@@ -153,8 +159,8 @@ void		parse(char *line)
 		ms->cmds = ft_lstnew(create_cmd(ms->tokens)); // no semi colons not need to split
 	else
 	{
-		ft_printf("has %d semi colon inside! \n", separators);
-		split_semi_colon(separators);
+		split_into_commands(separators);
+		// split_semi_colon(separators);
 		// TODO: SPLIT HERE BY ';'
 		// TODO: FLAGS TOKENS INSIDE ALL COMMANDS
 		// TODO: ARGS[0] => COMMANDS
@@ -167,7 +173,7 @@ void		parse(char *line)
 
 /*
 	tokenize quotes/double quotes/backslash
-
+	split by commands
 
 
 */

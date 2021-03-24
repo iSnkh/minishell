@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/23 17:34:54 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 17:41:27 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ enum					e_flags_cmds
 	CMD_LREDIR = (1 << 0),
 	CMD_RREDIR = (1 << 1),
 	CMD_PIPE = (1 << 2),
-	CMD_PARSED = (1 << 3)
+	CMD_PARSED = (1 << 3),
+	CMD_DREDIR = (1 << 4)
 };
 
 typedef struct			s_ms
@@ -102,5 +103,9 @@ void	replace_env(t_list *list);
 
 // commands/utils.c
 t_cmd	*create_cmd(t_list *tokens);
+
+// commands/spliter.c
+int		split_into_commands(int separators);
+
 
 #endif
