@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/23 18:47:42 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 14:21:41 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		split_semi_colon(int splitter)
 		{
 			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
 		}
-
 		list = list->next;
 	}
 
@@ -116,7 +115,19 @@ int		count_seps()
 			count = 0;
 			while (tokenLst->token[count])
 			{
-				if (is_cmd_sep(tokenLst->token[count]) && count > 1 && tokenLst->token[count - 1] != '>')
+				if (tokenLst->token[count] == '>')
+				{
+					if (tokenLst->token[count + 1] && tokenLst->token[count + 1] == '>')
+						count++;
+					separators++;
+				}
+				if (tokenLst->token[count] == '<')
+					separators++;
+				if (tokenLst->token[count] == '|')
+					separators++;
+				if (tokenLst->token[count] == ';')
+					separators++;
+				if (tokenLst->token[count] == '<')
 					separators++;
 				count++;
 			}
