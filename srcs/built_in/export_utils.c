@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/02/25 17:22:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 14:12:31 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void ft_joinvar(char *var, t_env *tmp)
 
 }
 
-void ft_print_export(char *var)
+void ft_print_export(char *var, t_mshell *ms)
 {
 	int i;
 	int k;
@@ -75,29 +75,29 @@ void ft_print_export(char *var)
 	k = 0;
     while(var[i])
     {
-		 write(STDIN,&var[i],1); 
+		 write(ms->st_in,&var[i],1); 
 		if(var[i] == '=' && k == 0)
 		{
-            ft_putstr_fd("\"",STDIN);
+            ft_putstr_fd("\"",ms->st_in);
 			k = 1;
 		}
 		if(var[i + 1] == '\0' && k == 1)
-			ft_putstr_fd("\"\n",STDIN);
+			ft_putstr_fd("\"\n",ms->st_in);
 		i++;
     }
     //write(1,"\n",1);
 }
 
 
-void ft_display_export()
+void ft_display_export(t_mshell *ms)
 {
     t_env	*tmp;
 
 	tmp = first;
 	while (tmp)
 	{
-		write(STDIN,"declare -x ",11);
-        ft_print_export(tmp->var);
+		write(ms->st_in,"declare -x ",11);
+        ft_print_export(tmp->var,ms);
 		tmp = tmp->next;
 	}
 }

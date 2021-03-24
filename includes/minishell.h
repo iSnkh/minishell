@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/22 18:29:34 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 16:09:38 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@
 # define	STDIN 0
 # define	STDOUT 1
 # define	STDERR 2
-
-typedef	struct 				s_token
-{
-	char 					*tok;
-	int						rdir;
-	struct s_token			*next;
-}							t_token;
 
 typedef struct				s_redir
 {
@@ -78,16 +71,16 @@ void	ft_excute(t_mshell *ms, char **cmd);
 // built-in
 
 void	ft_joinvar(char *var, t_env *tmp);
-void 	ft_print_export(char *var);
-void	built_in_export(char **cmd);
+void 	ft_print_export(char *var, t_mshell *ms);
+void	built_in_export(char **cmd,t_mshell *ms);
 void 	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
 void	built_in_exit(char **cmd, t_mshell *msh);
-char	*built_in_pwd(void);
-void	built_in_env(void);
-int 	exec_built_in(char **built_in, t_mshell *msh);
+char	*built_in_pwd(char *built_in);
+void	built_in_env(t_mshell *ms);
+int 	exec_built_in(char **built_in, t_mshell *ms);
 bool	is_built_in(char *cmd);
-void	built_in_echo(char **cmd);
+void	built_in_echo(char **cmd, t_mshell *ms);
 void	ft_display_export();
 void	ft_add_env_export(char *var);
 int		ft_env_size(t_env *env);
@@ -103,10 +96,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 //redir
 
 void	ft_init_mshell(t_mshell *ms);
-void	ft_redir(t_mshell *ms, t_token *tokens);
-void	ft_parse_redir(char **cmd, t_mshell *ms, t_token *tokens);
-t_token	*ft_add_token(char *var, t_token *tokens, int rdir);
-void	ft_clear_app(t_token *token, t_mshell *ms);
+void 	ft_parse_redir_v2(char **cmd, t_mshell *ms);
+void	ft_clear_app(t_mshell *ms);
 void	ft_pipe(t_mshell *ms, char **cmd);
 void	shell_loop();
 

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/22 16:18:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 15:19:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	built_in_cd(char *path)
 		if (pwd != NULL)
 		{
 			pwd = &pwd[-ft_strlen("PWD=")];
-			pwd_ptr = built_in_pwd();
+			pwd_ptr = built_in_pwd("cd");
 			strcpy(pwd, pwd_ptr);
 			free(pwd_ptr);
 			pwd_ptr = NULL;
@@ -42,7 +42,7 @@ void	built_in_cd(char *path)
 		perror("chdir");
 }
 
-char	*built_in_pwd(void)
+char	*built_in_pwd(char *built_in)
 {
 	char	*cwd;
 
@@ -53,10 +53,13 @@ char	*built_in_pwd(void)
 	strcat(cwd, "PWD=");
 	if (getcwd(&cwd[4], PATH_MAX) == NULL)
 		perror("getcwd()");
-	return (cwd);
+	if(ft_strcmp(built_in,"pwd") == 0)
+		return (cwd+4);
+	else
+		return	(cwd);
 }
 
-void	built_in_env(void)
+void	built_in_env(t_mshell *ms)
 {
 	t_env	*tmp;
 
@@ -65,25 +68,28 @@ void	built_in_env(void)
 	{
 		if(ft_chr(tmp->var,'='))
 		{
-			ft_putstr_fd(tmp->var,STDIN);
-			ft_putstr_fd("\n",STDIN);
+			ft_putstr_fd(tmp->var,ms->st_in);
+			ft_putstr_fd("\n",ms->st_in);
 		}
 		tmp = tmp->next;
 	}
 }
 
-void	built_in_echo(char **cmd)
+void	built_in_echo(char **cmd, t_mshell *ms)
 {
 	if (!(strcmp(cmd[1], "-n")))
-		ft_printf("%s", cmd[2]);
+		ft_putstr_fd(cmd[2],ms->st_in);
 	else if ((strcmp(cmd[1], "-n")))
-		ft_printf("%s\n", cmd[1]);
+	{
+		ft_putstr_fd(cmd[1],ms->st_in);
+		ft_putstr_fd("\n",ms->st_in);
+	}
 }
 
-void	built_in_export(char **cmd)
+void	built_in_export(char **cmd, t_mshell *ms)
 {
-	if (cmd[1] == NULL)
-		ft_display_export();
+	if (cmd[1] == NULL || ms->st_in != STDIN)
+		ft_display_export(ms);
 	else if(ft_check_correct_var(ft_trim(cmd[1],34)) == 0)
 	{
 		ft_putstr_fd("minishell: export: `",STDERR);

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/22 18:33:16 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 16:09:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,26 @@ bool is_built_in(char *cmd)
     return (false);
 }
 
-int exec_built_in(char **built_in, t_mshell *msh)
+int exec_built_in(char **built_in, t_mshell *ms)
 {
     if (!strcmp(built_in[0], "pwd"))
-        ft_printf("%s\n",ft_get_env_var("PWD="));
+    {
+        ft_putstr_fd(built_in_pwd(built_in[0]),ms->st_in);
+        ft_putstr_fd("\n",ms->st_in);
+    }
     else if (!strcmp(built_in[0], "cd"))
         built_in_cd(built_in[1]);
     else if (!strcmp(built_in[0], "env"))
-        built_in_env();
+        built_in_env(ms);
     else if (!strcmp(built_in[0], "echo"))
-        built_in_echo(built_in);
+        built_in_echo(built_in, ms);
     else if (!strcmp(built_in[0], "export"))
-        built_in_export(built_in);
+        built_in_export(built_in,ms);
     else if (!strcmp(built_in[0], "unset"))
         built_in_unset(built_in);
     else if (!strcmp(built_in[0], "exit"))
     {
-        built_in_exit(built_in, msh);
+        built_in_exit(built_in, ms);
         return (1);
     }
     return(0);
@@ -81,11 +84,9 @@ int main(int argc, char **argv, char **envp)
     char *buffer = NULL;
     size_t buf_size = 2048;
     char **cmd = NULL;
-    //char **env = NULL;
     t_mshell ms;
-    t_token *tokens;
 
-    tokens = NULL;
+    
     ft_init_mshell(&ms);
     ft_dup_env(envp);
     (void)argc;
@@ -108,29 +109,14 @@ int main(int argc, char **argv, char **envp)
             ft_printf("cmd[%d] = %s\n",i,cmd[i]);
             i++;
         }
-   //     ft_parse_redir(cmd,&ms,tokens);
-     //   ft_redir(&ms,tokens);
+        ft_parse_redir_v2(cmd, &ms);
         ft_excute(&ms, cmd);
-       /* if (cmd[0] == NULL)
-            ft_printf("");
-        else if (is_built_in(cmd[0]) == true)
-            ms.ext = exec_built_in(cmd, &ms);
-        else
-        {
-            env = ft_lst_to_array();
-            if(get_abs_path(cmd,env) == true)
-                ft_exec_cmd(cmd,env);
-            else
-                ft_printf("Commande not found\n");
-            free(env);
-            env = NULL;
-        }*/
         if(ms.ext == 0)
             write(1,"minishell> ",11);
         if(ms.ext == 1)
             break;
         free_array(cmd);
-        ft_clear_app(tokens,&ms);
+        ft_clear_app(&ms);
     }
     free_lst();
     
