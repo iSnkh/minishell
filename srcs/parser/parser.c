@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 13:58:28 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:30:59 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,40 +70,6 @@ void	flags_tokens()
 	}
 }
 
-
-int		split_semi_colon(int splitter)
-{
-	t_list	*list;
-	t_cmd	*cmd;
-	t_token *token;
-
-	cmd = create_cmd(NULL);
-	cmd->flags = 0;
-	list = ms->tokens;
-	while (list)
-	{
-		token = (t_token *)list->content;
-		if (is_escaped(token))
-		{
-			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
-		}
-		else
-		{
-
-		}
-
-		list = list->next;
-	}
-
-	ms->cmds = ft_lstnew(cmd);
-}
-
-/**
- * 	while token
- * 	if
- *
- */
-
 int		count_seps()
 {
 	t_list	*list;
@@ -146,7 +112,6 @@ int		count_seps()
 void		parse(char *line)
 {
 	int		i;
-	int		separators;
 
 	i = 0;
 	if (tokenize(line) == -1)
@@ -154,26 +119,10 @@ void		parse(char *line)
 		ft_printf("Error on parsing lines...");
 		return;
 	}
-	separators = count_seps();
-	if (!separators)
-		ms->cmds = ft_lstnew(create_cmd(ms->tokens)); // no semi colons not need to split
+	if (!count_seps())
+		ms->cmds = ft_lstnew(create_cmd(ms->tokens));
 	else
-	{
-		i = split_into_commands(separators);
-		// split_semi_colon(separators);
-		// TODO: SPLIT HERE BY ';'
-		// TODO: FLAGS TOKENS INSIDE ALL COMMANDS
-		// TODO: ARGS[0] => COMMANDS
-		// flags_tokens();
-	}
+		split_into_commands();
 	ft_lstmap(ms->cmds, &print_commands, NULL);
 	return;
 }
-
-
-/*
-	tokenize quotes/double quotes/backslash
-	split by commands
-
-
-*/

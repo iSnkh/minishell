@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:40:18 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 16:15:47 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:29:59 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,12 @@ t_cmd	*cut_around_spliter(t_cmd *cmd, t_token *token)
 	return (new);
 }
 
-int		split_into_commands(int separators)
+void		split_into_commands()
 {
 	t_list	*list;
 	t_cmd	*cmd;
 	t_token *token;
 
-	ft_printf("\n\n[Debug] Separators=%d, Commands=%d\n", separators, separators + 1);
 	cmd = create_cmd(NULL);
 	list = ms->tokens;
 	while (list)

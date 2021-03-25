@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 15:49:44 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:31:34 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	replace_env(t_list *list);
 t_cmd	*create_cmd(t_list *tokens);
 
 // commands/spliter.c
-int		split_into_commands(int separators);
-
+int		split_into_commands();
 
 #endif
