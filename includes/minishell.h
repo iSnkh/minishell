@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/24 17:41:27 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 15:49:44 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include "../libft/includes/libft.h"
 
-#define CMD_SEP "|><;"
+#define CMD_SEPS "|><;"
 
 enum					e_flags_token
 {
@@ -42,7 +42,8 @@ enum					e_flags_cmds
 	CMD_RREDIR = (1 << 1),
 	CMD_PIPE = (1 << 2),
 	CMD_PARSED = (1 << 3),
-	CMD_DREDIR = (1 << 4)
+	CMD_DREDIR = (1 << 4),
+	CMD_SEP = (1 << 5)
 };
 
 typedef struct			s_ms
@@ -78,6 +79,9 @@ void    built_in_cd(char *path);
 void    build_in_pwd(void);
 
 void	shell_loop();
+
+void	*print_tokens(void *content);
+
 
 // global_utils.c
 void	clear_console();

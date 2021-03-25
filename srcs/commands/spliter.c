@@ -6,38 +6,11 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:40:18 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/24 19:00:16 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:15:47 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		_split_semi_colon(int splitter)
-{
-	t_list	*list;
-	t_cmd	*cmd;
-	t_token *token;
-
-	cmd = create_cmd(NULL);
-	cmd->flags = 0;
-	list = ms->tokens;
-	while (list)
-	{
-		token = (t_token *)list->content;
-		if (is_escaped(token))
-		{
-			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
-		}
-		else
-		{
-
-		}
-
-		list = list->next;
-	}
-
-	ms->cmds = ft_lstnew(cmd);
-}
 
 int		containing_separator(char *str)
 {
@@ -64,25 +37,43 @@ char	*get_spliter_pos(char *str)
 			return (str + count);
 		count++;
 	}
+	return (NULL);
+}
+
+int		type_to_flag(char *type)
+{
+	if (type[0] == '>' && type[1] && type[1] == '>')
+		return (CMD_DREDIR);
+	if (type[0] == '>')
+		return (CMD_RREDIR);
+	if (type[0] == '<')
+		return (CMD_LREDIR);
+	if (type[0] == ';')
+		return (CMD_SEP);
+	if (type[0] == '|')
+		return (CMD_PIPE);
 	return (-1);
 }
 
-// int		sep_
-
-t_cmd	*cut_around_spliter(t_cmd *cmd, t_token *token, int *separators)
+t_cmd	*cut_around_spliter(t_cmd *cmd, t_token *token)
 {
 	t_cmd	*new;
 	char	*str;
 	char	*type;
-	int		count;
 
 	new = create_cmd(NULL);
 	type = get_spliter_pos(token->token);
 	str = ft_substr(token->token, 0, type - token->token);
-	ft_printf("str={%s}, type={%c}\n", str, *type);
-	// TODO: need to do the function that transform char to flag
-	// ft_printf("token=%p, type=%p, str={%d} type =%c\n", token->token, type, type - token->token, *type);
-	return (NULL);
+	cmd->flags |= type_to_flag(type);
+	ft_lstadd_back(&cmd->args, ft_lstnew(create_token(str, 0)));
+	ft_lstadd_back(&ms->cmds, ft_lstnew(cmd));
+	if (cmd->flags & CMD_DREDIR)
+		str = ft_strdup(token->token + (type - token->token) + 2);
+	else
+		str = ft_strdup(token->token + (type - token->token) + 1);
+	free(token->token);
+	token->token = str;
+	return (new);
 }
 
 int		split_into_commands(int separators)
@@ -94,20 +85,21 @@ int		split_into_commands(int separators)
 	ft_printf("\n\n[Debug] Separators=%d, Commands=%d\n", separators, separators + 1);
 	cmd = create_cmd(NULL);
 	list = ms->tokens;
-	while (list && separators)
+	while (list)
 	{
 		token = (t_token *)list->content;
 		if (is_escaped(token))
 			ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
 		else
 		{
-			if (containing_separator(token->token))
-			{
-				cmd = cut_around_spliter(cmd, token, &separators);
-			}
+			while (containing_separator(token->token))
+				cmd = cut_around_spliter(cmd, token);
+			if (ft_strlen(token->token) > 0)
+				ft_lstadd_back(&cmd->args, ft_lstnew(create_token(token->token, token->flags)));
 		}
 		list = list->next;
 	}
+	ft_lstadd_back(&ms->cmds, ft_lstnew(cmd));
 }
 
 

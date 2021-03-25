@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/24 17:50:26 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 13:58:28 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	*print_commands(void *content)
 
 	if (cmd->flags & CMD_PARSED)
 	{
-		ft_printf("=========-[%s]-=========\n", cmd->cmd_name);
+		ft_printf("\n=========-[%s]-=========\n", cmd->cmd_name);
 		ft_printf(">> Flags = [%d]\n", cmd->flags);
 		ft_lstmap(cmd->args, &print_tokens, NULL);
 		ft_printf("========================\n");
 	}
 	else
 	{
-		ft_printf("=========-[Unknown]-=========\n");
+		ft_printf("\n=========-[Unknown]-=========\n");
 		ft_printf(">> Flags = [%d]\n", cmd->flags);
 		ft_lstmap(cmd->args, &print_tokens, NULL);
 		ft_printf("========================\n");
@@ -159,7 +159,7 @@ void		parse(char *line)
 		ms->cmds = ft_lstnew(create_cmd(ms->tokens)); // no semi colons not need to split
 	else
 	{
-		split_into_commands(separators);
+		i = split_into_commands(separators);
 		// split_semi_colon(separators);
 		// TODO: SPLIT HERE BY ';'
 		// TODO: FLAGS TOKENS INSIDE ALL COMMANDS

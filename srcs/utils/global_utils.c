@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/23 16:28:33 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 13:50:20 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		is_escaped(t_token *token)
 
 int		is_cmd_sep(char c)
 {
-	if (ft_strchr(CMD_SEP, c))
+	if (ft_strchr(CMD_SEPS, c))
 		return (1);
 	return (0);
 }
