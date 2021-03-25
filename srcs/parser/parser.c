@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 16:30:59 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 18:38:08 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*print_tokens(void *content)
 	t_token	*token = (t_token *)content;
 
 	ft_printf("[%d] {%s}\n", token->flags, token->token);
+	return (NULL);
 }
 
 void	*print_commands(void *content)
@@ -37,6 +38,7 @@ void	*print_commands(void *content)
 		ft_lstmap(cmd->args, &print_tokens, NULL);
 		ft_printf("========================\n");
 	}
+	return (NULL);
 }
 
 void	flags_tokens()
@@ -123,6 +125,6 @@ void		parse(char *line)
 		ms->cmds = ft_lstnew(create_cmd(ms->tokens));
 	else
 		split_into_commands();
+	// ft_lstclear(&ms->tokens, free); // TODO: Clear tokens here
 	ft_lstmap(ms->cmds, &print_commands, NULL);
-	return;
 }

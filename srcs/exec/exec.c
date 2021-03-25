@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:45:10 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 19:04:33 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/03/25 18:33:57 by amonteli          #+#    #+#             */
+/*   Updated: 2021/03/25 19:05:23 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_loop(void)
+void	exec(void)
 {
-	char	*line;
+	t_list	*cmds;
+	t_cmd	*cmd;
 
-	line = ft_calloc(1, sizeof(char));
-	while (get_next_line(0, &line))
+	cmds = ms->cmds;
+	while (cmds)
 	{
-		parse(line);
-		// free(line);
-		format_commands();
-		// exec
-		// clear tokens
-		ft_printf("[minishell] >");
+		cmd = (t_cmd *)cmds->content;
 
-		// ft_printf("wesh?");
+
+		cmds = cmds->next;
 	}
 }
