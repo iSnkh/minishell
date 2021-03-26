@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/24 16:08:56 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:36:01 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void ft_parse_redir_v2(char **cmd, t_mshell *ms)
     while(cmd[i])
     {
         if(strcmp(cmd[i],">\0") == 0)
-        	ms->st_in = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC,  S_IRWXU); 
+        	ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC,  S_IRWXU); 
         else if(strcmp(cmd[i],">>\0") == 0)
-            ms->st_in = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND,  S_IRWXU);
+            ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND,  S_IRWXU);
         else if (ft_strcmp(cmd[i],"|"))
 			ms->p = 1;
 		i++;

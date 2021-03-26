@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/24 16:09:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:37:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int exec_built_in(char **built_in, t_mshell *ms)
 {
     if (!strcmp(built_in[0], "pwd"))
     {
-        ft_putstr_fd(built_in_pwd(built_in[0]),ms->st_in);
-        ft_putstr_fd("\n",ms->st_in);
+        ft_putstr_fd(built_in_pwd(built_in[0]),ms->st_out);
+        ft_putstr_fd("\n",ms->st_out);
     }
     else if (!strcmp(built_in[0], "cd"))
         built_in_cd(built_in[1]);
@@ -68,7 +68,7 @@ void ft_excute(t_mshell *ms, char **cmd)
     {
         env = ft_lst_to_array();
         if(get_abs_path(cmd,env) == true)
-            ft_exec_cmd(cmd,env);
+            ft_exec_cmd(cmd,env,ms);
         else
         {    
             ft_printf("Commande not found\n");

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/24 16:26:23 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 14:20:13 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clear_console(void)
 }
 
 
-void ft_exec_cmd(char **cmd, char **env)
+void ft_exec_cmd(char **cmd, char **env,t_mshell *ms)
 {
 	pid_t 	pid = 0;
 	int		status = 0;
@@ -33,7 +33,8 @@ void ft_exec_cmd(char **cmd, char **env)
 	}
 	else
 	{
-		if(execve(cmd[0], cmd, env) == -1)
+		dup2(ms->st_in,STDOUT);
+		if(execve(cmd[0], &cmd[0], env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/24 15:19:23 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:35:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	built_in_env(t_mshell *ms)
 	{
 		if(ft_chr(tmp->var,'='))
 		{
-			ft_putstr_fd(tmp->var,ms->st_in);
-			ft_putstr_fd("\n",ms->st_in);
+			ft_putstr_fd(tmp->var,ms->st_out);
+			ft_putstr_fd("\n",ms->st_out);
 		}
 		tmp = tmp->next;
 	}
@@ -78,17 +78,17 @@ void	built_in_env(t_mshell *ms)
 void	built_in_echo(char **cmd, t_mshell *ms)
 {
 	if (!(strcmp(cmd[1], "-n")))
-		ft_putstr_fd(cmd[2],ms->st_in);
+		ft_putstr_fd(cmd[2],ms->st_out);
 	else if ((strcmp(cmd[1], "-n")))
 	{
-		ft_putstr_fd(cmd[1],ms->st_in);
-		ft_putstr_fd("\n",ms->st_in);
+		ft_putstr_fd(cmd[1],ms->st_out);
+		ft_putstr_fd("\n",ms->st_out);
 	}
 }
 
 void	built_in_export(char **cmd, t_mshell *ms)
 {
-	if (cmd[1] == NULL || ms->st_in != STDIN)
+	if (cmd[1] == NULL || ms->st_out != STDOUT)
 		ft_display_export(ms);
 	else if(ft_check_correct_var(ft_trim(cmd[1],34)) == 0)
 	{
