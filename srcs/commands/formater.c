@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 19:03:28 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 19:14:59 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 12:10:03 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	cmd_replace_env(t_cmd *cmd)
 {
 	t_list	*list;
 	t_token	*token;
+	int		count;
 
 	list = cmd->args;
 	while (list)
 	{
 		token = (t_token *)list->content;
-		if (ft_strchr(token->token, '$') && !(token->flags & MS_SLASH || token->flags & MS_QUOTES))
+		while (ft_strchr(token->token, '$') && !(token->flags & MS_SLASH || token->flags & MS_QUOTES))
 		{
-
+			replace_env(list);
 		}
 		list = list->next;
 	}
