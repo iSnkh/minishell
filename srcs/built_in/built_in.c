@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/26 13:35:23 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 18:23:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ char	*built_in_pwd(char *built_in)
 {
 	char	*cwd;
 
-	cwd = NULL;
+	cwd = getcwd(NULL,_POSIX_PATH_MAX);
+
+	
 	if (!(cwd = (char *)ft_calloc(sizeof(char), PATH_MAX
 	+ ft_strlen("PWD=") + 1)))
 		return (NULL);

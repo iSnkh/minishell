@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/26 13:36:01 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 16:43:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    ft_init_mshell(t_mshell *ms)
     ms->ext = 0;
 }
 
-void ft_parse_redir_v2(char **cmd, t_mshell *ms)
+int ft_parse_redir_v2(char **cmd, t_mshell *ms)
 {
     int i;
     
@@ -30,16 +30,26 @@ void ft_parse_redir_v2(char **cmd, t_mshell *ms)
     while(cmd[i])
     {
         if(strcmp(cmd[i],">\0") == 0)
-        	ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC,  S_IRWXU); 
-        else if(strcmp(cmd[i],">>\0") == 0)
-            ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND,  S_IRWXU);
+            ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC,  
+            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH); 
+        else if(ft_strcmp(cmd[i],">>\0") == 0)
+            ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND,  
+            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
         else if (ft_strcmp(cmd[i],"|"))
 			ms->p = 1;
+       /* else if (ft_strcmp(cmd[i],"<\0") == 0)
+            if ((ms->st_in = open(cmd[i + 1],O_RDONLY)) < 0)
+            {
+                ft_printf("minishell: %s: No such file or directory\n", cmd[i +1]);
+                return(-1);
+            }*/
 		i++;
     }
+    return(1);
 }
 
 void    ft_clear_app(t_mshell *ms)
 {
     ft_init_mshell(ms);
 }
+

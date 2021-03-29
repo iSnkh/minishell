@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/26 13:37:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 16:52:46 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int exec_built_in(char **built_in, t_mshell *ms)
     else if (!strcmp(built_in[0], "echo"))
         built_in_echo(built_in, ms);
     else if (!strcmp(built_in[0], "export"))
-        built_in_export(built_in,ms);
+        built_in_export(built_in, ms);
     else if (!strcmp(built_in[0], "unset"))
         built_in_unset(built_in);
     else if (!strcmp(built_in[0], "exit"))
@@ -109,8 +109,8 @@ int main(int argc, char **argv, char **envp)
             ft_printf("cmd[%d] = %s\n",i,cmd[i]);
             i++;
         }
-        ft_parse_redir_v2(cmd, &ms);
-        ft_excute(&ms, cmd);
+        if(ft_parse_redir_v2(cmd, &ms) == 1)
+            ft_excute(&ms, cmd);
         if(ms.ext == 0)
             write(1,"minishell> ",11);
         if(ms.ext == 1)
@@ -118,8 +118,9 @@ int main(int argc, char **argv, char **envp)
         free_array(cmd);
         ft_clear_app(&ms);
     }
+    if(ms.ext != 1)
+        ft_printf("exit\n");
     free_lst();
-    
     printf("Bye \n");
     free(buffer);
     return(ms.ret);

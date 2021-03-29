@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/26 13:37:03 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 16:49:00 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_env *first;
 
 int		main(int argc, char **argv, char **env);
 
-void	ft_exec_cmd(char **cmd, char **env,t_mshell *ms);
+void	ft_exec_cmd(char **cmd, char **env, t_mshell *ms);
 void	free_array(char **array);
 void	free_lst(void);
 void    ft_dup_env(char **envp);
@@ -96,7 +96,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 //redir
 
 void	ft_init_mshell(t_mshell *ms);
-void 	ft_parse_redir_v2(char **cmd, t_mshell *ms);
+int 	ft_parse_redir_v2(char **cmd, t_mshell *ms);
+int		ft_redir(char **cmd, t_mshell *ms);
 void	ft_clear_app(t_mshell *ms);
 void	ft_pipe(t_mshell *ms, char **cmd);
 void	shell_loop();
