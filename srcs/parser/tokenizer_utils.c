@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:54:36 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/24 18:47:32 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 14:03:23 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*dup_with_escaping(char *str, int size)
 	return (newstr);
 }
 
-int		fucking_slash(char *line, int flags)
+int		fucking_slash(char *line, int flags)	// TODO: BORDEL DE MERDE POURQUOI TU DECONNE SLASH DE MORT.
 {
 	int		count;
 	int		found;
@@ -72,17 +72,18 @@ int		fucking_slash(char *line, int flags)
 	found = 0;
 	while (line[count] && !found)
 	{
-		if (line[count] == '"')
+		if (line[count] == '\\')
+			count += 2;
+		else if (line[count] == '"')
+		{
 			found = 1;
-		if (line[count] == '"' && count > 0 && line[count - 1] == '\\')
-			found = 0;
-		ft_printf("%c", line[count]);
-		count++;
+			count++;
+		}
+		else
+			count++;
 	}
 	if (!found)
 		return (-1);
-	ft_printf("\n");
-	// str = dup_with_escaping(line, count - 1);
 	str = ft_strndup(line, count - 1);
 	if (ft_strlen(str) > 0)
 		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
