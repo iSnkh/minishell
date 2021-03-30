@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/29 18:36:03 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 17:52:50 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,39 @@ void	built_in_cd(char *path)
 	pwd_ptr = NULL;
 	if (path == NULL)
 		return ;
-	if (chdir(path) == 0)
+	else if (chdir(path) == 0)
 	{
 		pwd = ft_strrchr(ft_get_env_var("PWD="), '=') + 1;
 		oldpwd = ft_strrchr(ft_get_env_var("OLDPWD="), '=') + 1;
 		if (oldpwd != NULL && pwd != NULL)
-			strcpy(oldpwd, pwd);
+			oldpwd = ft_strjoin("OLDPWD=",ft_strdup(pwd));
 		if (pwd != NULL)
 		{
 			pwd = &pwd[-ft_strlen("PWD=")];
-			pwd_ptr = built_in_pwd("cd");
-			strcpy(pwd, pwd_ptr);
+			pwd_ptr = built_in_pwd("");
+			pwd = ft_strdup(pwd_ptr);
 			free(pwd_ptr);
 			pwd_ptr = NULL;
 		}
+		ft_replace_env(pwd,"PWD=");
+		ft_replace_env(oldpwd, "OLDPWD=");
 	}
 	else
 		perror("chdir");
 }
 
-char	*built_in_pwd(char *built_in)
+char	*built_in_pwd(char *cmd)
 {
 	char	*cwd;
-	int k;
 
-/*	cwd = getcwd(NULL,_POSIX_PATH_MAX);
-	ft_putstr_fd(cwd,ms->st_out);
-	free(cwd);
-	return(k)*/
-	
+	cwd = NULL;
 	if (!(cwd = (char *)ft_calloc(sizeof(char), PATH_MAX
 	+ ft_strlen("PWD=") + 1)))
 		return (NULL);
 	strcat(cwd, "PWD=");
 	if (getcwd(&cwd[4], PATH_MAX) == NULL)
 		perror("getcwd()");
-	if(ft_strcmp(built_in,"pwd") == 0)
+	if(ft_strcmp(cmd,"pwd") == 0)
 		return (cwd+4);
 	else
 		return	(cwd);

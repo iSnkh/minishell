@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/02/08 16:30:40 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 17:43:57 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,21 @@ void ft_dup_env(char **envp)
 
 }
 
+void ft_replace_env(char *var, char *name)
+{
+	t_env *tmp;
+
+	tmp = first;
+	while(tmp)
+	{
+		if(ft_strncmp(name,tmp->var,ft_strlen(name)) == 0)
+		{
+			free(tmp->var);
+			tmp->var = ft_strdup(var);
+		}
+		tmp = tmp->next;
+	}
+}
 
 /*
 void ft_dup_env(char **envp)

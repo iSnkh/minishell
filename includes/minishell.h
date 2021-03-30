@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 16:49:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 17:42:00 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ void	ft_excute(t_mshell *ms, char **cmd);
 
 // built-in
 
+void 	ft_replace_env(char *var, char *name); // en test
 void	ft_joinvar(char *var, t_env *tmp);
 void 	ft_print_export(char *var, t_mshell *ms);
 void	built_in_export(char **cmd,t_mshell *ms);
 void 	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
 void	built_in_exit(char **cmd, t_mshell *msh);
-char	*built_in_pwd(char *built_in);
+char	*built_in_pwd(char *cmd);
 void	built_in_env(t_mshell *ms);
 int 	exec_built_in(char **built_in, t_mshell *ms);
 bool	is_built_in(char *cmd);

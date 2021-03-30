@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/29 16:52:46 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 15:54:20 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ bool is_built_in(char *cmd)
 
 int exec_built_in(char **built_in, t_mshell *ms)
 {
+    char *pwd;
+
     if (!strcmp(built_in[0], "pwd"))
     {
-        ft_putstr_fd(built_in_pwd(built_in[0]),ms->st_out);
-        ft_putstr_fd("\n",ms->st_out);
+        pwd = built_in_pwd(built_in[0]);
+        ft_putstr_fd(pwd,ms->st_out);
+	    ft_putstr_fd("\n",ms->st_out);
+       // free(pwd);
     }
     else if (!strcmp(built_in[0], "cd"))
         built_in_cd(built_in[1]);

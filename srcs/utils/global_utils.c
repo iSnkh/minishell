@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 17:53:13 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 15:56:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void ft_exec_cmd(char **cmd, char **env, t_mshell *ms)
 	pid_t 	pid = 0;
 	int		status = 0;
 
-	char **arg;
-
-	arg = (char**)ft_calloc(sizeof(char*),2);
-	arg[0]=ft_strdup(cmd[0]);
+	
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -42,7 +39,7 @@ void ft_exec_cmd(char **cmd, char **env, t_mshell *ms)
 			dup2(ms->st_out,STDOUT);
 			close(ms->st_out);
 		}
-		if(execve(cmd[0],arg, env) == -1)
+		if(execve(cmd[0],cmd, env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}
