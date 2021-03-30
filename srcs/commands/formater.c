@@ -6,13 +6,11 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 19:03:28 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/26 12:10:03 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 12:01:03 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	cmd_replace_env(t_cmd *cmd)
 {
@@ -30,6 +28,11 @@ void	cmd_replace_env(t_cmd *cmd)
 		}
 		list = list->next;
 	}
+}
+
+void	cmd_replace_slash(t_cmd *cmd)
+{
+
 }
 
 void	format_commands(void)
