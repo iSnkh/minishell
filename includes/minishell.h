@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/30 17:42:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 16:34:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		main(int argc, char **argv, char **env);
 void	ft_exec_cmd(char **cmd, char **env, t_mshell *ms);
 void	free_array(char **array);
 void	free_lst(void);
-void    ft_dup_env(char **envp);
+void	ft_dup_env(char **envp);
 void	ft_add_env_var(char *var);
 char	*ft_get_env_var(char *var);
 char	**ft_lst_to_array();
@@ -70,25 +70,25 @@ void	ft_excute(t_mshell *ms, char **cmd);
 
 // built-in
 
-void 	ft_replace_env(char *var, char *name); // en test
+void	ft_replace_env(char *var, char *name); // en test
 void	ft_joinvar(char *var, t_env *tmp);
-void 	ft_print_export(char *var, t_mshell *ms);
+void	ft_print_export(char *var, t_mshell *ms);
 void	built_in_export(char **cmd,t_mshell *ms);
-void 	built_in_unset(char **cmd);
+void	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
 void	built_in_exit(char **cmd, t_mshell *msh);
 char	*built_in_pwd(char *cmd);
 void	built_in_env(t_mshell *ms);
-int 	exec_built_in(char **built_in, t_mshell *ms);
+int		exec_built_in(char **built_in, t_mshell *ms);
 bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd, t_mshell *ms);
 void	ft_display_export();
 void	ft_add_env_export(char *var);
 int		ft_env_size(t_env *env);
 int		ft_chr(char *str, char c);
-int 	ft_check_env(char *var,t_env *tmp);
-char 	*ft_trim(char *str, char c);
-void 	ft_putstrn_fd(char *var, int len, int fd);
+int		ft_check_env(char *var,t_env *tmp);
+char	*ft_trim(char *str, char c);
+void	ft_putstrn_fd(char *var, int len, int fd);
 int		ft_check_correct_var(char *var);
 
 //libft
@@ -105,6 +105,6 @@ void	shell_loop();
 
 //signal
 
-void ft_signal_c(int sign);
+void	ft_signal_c(int sign);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/24 14:12:31 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 16:14:58 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void ft_joinvar(char *var, t_env *tmp)
 	{
 		if (ft_strncmp(var,tmp->var,i) == 0)
 		{
+			if(ft_chr(tmp->var,'=') == (int)ft_strlen(tmp->var))
+				tmp->var = ft_strjoin(tmp->var,"=");
 			tmp->var = ft_strjoin(tmp->var,var+i+2);
 			break;
 		}		
@@ -83,9 +85,10 @@ void ft_print_export(char *var, t_mshell *ms)
 		}
 		if(var[i + 1] == '\0' && k == 1)
 			ft_putstr_fd("\"\n",ms->st_in);
+		if(var[i + 1] == '\0' && k == 0)
+			ft_putstr_fd("\n",ms->st_in);
 		i++;
     }
-    //write(1,"\n",1);
 }
 
 

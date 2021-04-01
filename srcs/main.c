@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/03/30 15:54:20 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 17:39:45 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int exec_built_in(char **built_in, t_mshell *ms)
         pwd = built_in_pwd(built_in[0]);
         ft_putstr_fd(pwd,ms->st_out);
 	    ft_putstr_fd("\n",ms->st_out);
-       // free(pwd);
     }
     else if (!strcmp(built_in[0], "cd"))
         built_in_cd(built_in[1]);
@@ -105,19 +104,19 @@ int main(int argc, char **argv, char **envp)
     write(1,"minishell> ",11);
     while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
     {
-
-        cmd = ft_split(buffer, ' ');
+        
+        cmd = ft_split(buffer, ' '); // parse
         int i = 0 ;
-        while(cmd[i])
+        while (cmd[i])
         {
             ft_printf("cmd[%d] = %s\n",i,cmd[i]);
             i++;
         }
-        if(ft_parse_redir_v2(cmd, &ms) == 1)
+        if (ft_parse_redir_v2(cmd, &ms) == 1)
             ft_excute(&ms, cmd);
-        if(ms.ext == 0)
+        if (ms.ext == 0)
             write(1,"minishell> ",11);
-        if(ms.ext == 1)
+        if (ms.ext == 1)
             break;
         free_array(cmd);
         ft_clear_app(&ms);
@@ -129,4 +128,35 @@ int main(int argc, char **argv, char **envp)
     free(buffer);
     return(ms.ret);
 }
+/*
+void ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer, int buf_size)
+{
+    char *buffer = NULL;
+    size_t buf_size = 2048;
 
+    buffer = NULL;
+    buf_size = 2048;  
+    while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
+    {
+        if (!(buffer = (char *)ft_calloc(sizeof(char), buf_size)))
+        {
+            strerror(errno);
+            return (EXIT_FAILURE);
+        }
+        cmd = ft_split(buffer, ' '); // parse
+        int i = 0 ;
+        while (cmd[i])
+        {
+            ft_printf("cmd[%d] = %s\n",i,cmd[i]);
+            i++;
+        }
+        if (ft_parse_redir_v2(cmd, &ms) == 1)
+            ft_excute(&ms, cmd);
+        if (ms.ext == 0)
+            write(1,"minishell> ",11);
+        if (ms.ext == 1)
+            break;
+        free_array(cmd);
+        ft_clear_app(&ms);
+    }
+}*/
