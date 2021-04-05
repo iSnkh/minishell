@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/01 17:22:11 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:47:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,31 @@ void	built_in_cd(char *path)
 	if (path == NULL)
 		return ;
 	else if (chdir(path) == 0)
-	{
-		pwd = ft_strchr(ft_get_env_var("PWD="), '=') + 1;
-		oldpwd = ft_strchr(ft_get_env_var("OLDPWD="), '=') + 1;
-		if (oldpwd != NULL && pwd != NULL)
-			oldpwd = ft_strjoin("OLDPWD=", ft_strdup(pwd));
-		if (pwd != NULL)
-		{
-			pwd = &pwd[-ft_strlen("PWD=")];
-			pwd_ptr = built_in_pwd("");
-			pwd = ft_strdup(pwd_ptr);
-			free(pwd_ptr);
-			pwd_ptr = NULL;
-		}
-		ft_replace_env(pwd, "PWD=");
-		ft_replace_env(oldpwd, "OLDPWD=");
-	}
+		ft_change_path(oldpwd, pwd, pwd_ptr);
 	else
 	{
-		ft_putstr_fd("minishell: cd: ",STDERR);
-		ft_putstr_fd(strerror(errno),STDERR);
-		ft_putstr_fd("\n",STDERR);
+		ft_putstr_fd("minishell: cd: ", STDERR);
+		ft_putstr_fd(strerror(errno), STDERR);
+		ft_putstr_fd("\n", STDERR);
 	}
+}
+
+void	ft_change_path(char *oldpwd, char *pwd, char *pwd_ptr)
+{
+	pwd = ft_strchr(ft_get_env_var("PWD="), '=') + 1;
+	oldpwd = ft_strchr(ft_get_env_var("OLDPWD="), '=') + 1;
+	if (oldpwd != NULL && pwd != NULL)
+		oldpwd = ft_strjoin("OLDPWD=", ft_strdup(pwd));
+	if (pwd != NULL)
+	{
+		pwd = &pwd[-ft_strlen("PWD=")];
+		pwd_ptr = built_in_pwd("");
+		pwd = ft_strdup(pwd_ptr);
+		free(pwd_ptr);
+		pwd_ptr = NULL;
+	}
+	ft_replace_env(pwd, "PWD=");
+	ft_replace_env(oldpwd, "OLDPWD=");
 }
 
 char	*built_in_pwd(char *cmd)
@@ -91,23 +94,3 @@ void	built_in_echo(char **cmd, t_mshell *ms)
 		ft_putstr_fd("\n", ms->st_out);
 	}
 }
-
-void	built_in_export(char **cmd, t_mshell *ms)
-{
-	if (cmd[1] == NULL || ms->st_out != STDOUT)
-		ft_display_export(ms);
-	else if (ft_check_correct_var(ft_trim(cmd[1], 34)) == 0)
-	{
-		ft_putstr_fd("minishell: export: `", STDERR);
-		ft_putstr_fd(cmd[1], STDERR);
-		ft_putstr_fd("': not a valid identifier\n", STDERR);
-	}
-	else if (cmd[1] && cmd[1][0] != '=')
-		ft_add_env_export(ft_trim(cmd[1], 34));
-}	
-	/*else if (cmd[1][0] == '=')
-	{
-		ft_putstr_fd("minishell: export: `",STDIN);
-        ft_putstr_fd(cmd[1],STDIN);
-        ft_putstr_fd("': not a valid identifier\n",STDIN);
-	}*/

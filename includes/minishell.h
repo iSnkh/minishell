@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/01 16:34:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:45:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_print_export(char *var, t_mshell *ms);
 void	built_in_export(char **cmd,t_mshell *ms);
 void	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
+void 	ft_change_path(char *oldpwd, char *pwd, char *pwd_ptr);
 void	built_in_exit(char **cmd, t_mshell *msh);
 char	*built_in_pwd(char *cmd);
 void	built_in_env(t_mshell *ms);
@@ -84,11 +85,12 @@ bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd, t_mshell *ms);
 void	ft_display_export();
 void	ft_add_env_export(char *var);
+void 	ft_manage_add_env(char *var, t_env *tmp);
 int		ft_env_size(t_env *env);
 int		ft_chr(char *str, char c);
 int		ft_check_env(char *var,t_env *tmp);
 char	*ft_trim(char *str, char c);
-void	ft_putstrn_fd(char *var, int len, int fd);
+char	*ft_trimcpy(char *dst, char *str, char c);
 int		ft_check_correct_var(char *var);
 
 //libft

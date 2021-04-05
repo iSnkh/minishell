@@ -6,51 +6,45 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/30 15:56:40 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 18:01:34 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	clear_console(void)
+void	ft_exec_cmd(char **cmd, char **env, t_mshell *ms)
 {
-	ft_printf("\033[H\033[J");
-}
+	pid_t	pid;
+	int		status;
 
-
-void ft_exec_cmd(char **cmd, char **env, t_mshell *ms)
-{
-	pid_t 	pid = 0;
-	int		status = 0;
-
-	
+	status = 0;
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
-		kill(pid,SIGTERM);
+		kill(pid, SIGTERM);
 	}
 	else
 	{
-		if(ms->st_out != STDOUT)
+		if (ms->st_out != STDOUT)
 		{
-			dup2(ms->st_out,STDOUT);
+			dup2(ms->st_out, STDOUT);
 			close(ms->st_out);
 		}
-		if(execve(cmd[0],cmd, env) == -1)
+		if (execve(cmd[0], cmd, env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}
 }
 
-void free_array(char **array)
+void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(array[i])
+	while (array[i])
 	{
 		free(array[i]);
 		array[i] = NULL;
@@ -59,13 +53,13 @@ void free_array(char **array)
 	array = NULL;
 }
 
-bool get_abs_path(char **cmd, char **envp)
+bool	get_abs_path(char **cmd, char **envp)
 {
-	char *path;
-	char *bin;
-	char **path_split;
-	size_t index;
-	int 	i;
+	char	*path;
+	char	*bin;
+	char	**path_split;
+	size_t	index;
+	int		i;
 
 	path = NULL;
 	bin = NULL;
@@ -79,27 +73,25 @@ bool get_abs_path(char **cmd, char **envp)
 			if (!ft_strncmp(envp[i], "PATH=", 5))
 			{
 				path = ft_strdup(&envp[i][5]);
-				break;
+				break ;
 			}
 			i++;
 		}
-
 		if (path == NULL)
 			return (false);
 		path_split = ft_split(path, ':');
 		free(path);
 		path = NULL;
-
 		while (path_split[index])
 		{
-			if (!(bin = (char *)ft_calloc(sizeof(char),(ft_strlen(path_split[index])+ 1 + ft_strlen(cmd[0]) +1))))
+			if (!(bin = (char *)ft_calloc(sizeof(char), (ft_strlen(path_split[index]) + 1 + ft_strlen(cmd[0]) + 1))))
 				break;
 			strcat(bin, path_split[index]);
 			strcat(bin, "/");
-			strcat(bin,cmd[0]);
+			strcat(bin, cmd[0]);
 
-			if (access(bin , F_OK) == 0)
-				break;
+			if (access(bin, F_OK) == 0)
+				break ;
 			free(bin);
 			bin = NULL;
 			index++;
@@ -114,17 +106,19 @@ bool get_abs_path(char **cmd, char **envp)
 		free(path);
 		path = NULL;
 	}
-	if(bin == NULL)
-		return(false);
+	if (bin == NULL)
+		return (false);
 	else
-		return(true);
+		return (true);
 }
 
 void free_lst(void)
 {
-	t_env *index = first;
-	t_env *tmp = index;
-
+	t_env	*index;
+	t_env	*tmp; 
+	
+	index = first;
+	tmp = index;
 	while (index != NULL)
 	{
 		tmp = index;
@@ -136,7 +130,7 @@ void free_lst(void)
 	}
 }
 
-char **ft_lst_to_array()
+char	**ft_lst_to_array()
 {
 	char	**array;
 	t_env	*tmp;
@@ -150,11 +144,9 @@ char **ft_lst_to_array()
 		i++;
 		tmp = tmp->next;
 	}
-	if (!(array = (char **)ft_calloc(sizeof(char *), i + 1)))
-	{
-		perror("calloc");
+	array = (char **)ft_calloc(sizeof(char *), i + 1);
+	if (!array)
 		exit(-1);
-	}
 	tmp = first;
 	i = 0;
 	while (tmp)
