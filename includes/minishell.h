@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:14:50 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 15:57:25 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,11 @@ void	exec(void);
 
 //	commands/formater.c
 void	format_commands(void);
+
+
+// TODO: DEBUG RM THAT
+void	*print_commands(void *content);
+void	*print_tokens(void *content);
 
 
 #endif

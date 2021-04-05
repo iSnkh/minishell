@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:15:51 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/30 11:51:58 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 17:56:48 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ int		get_var_env_len(char *str)
 	return (count);
 }
 
-void	replace_str(t_token *token, int pos, char *env_key)
+void	replace_str(t_token *token, char *env_key)
 {
 	char	*str;
-	char	*env_value;
-	char	*len;
+	char	*env_val;
 
-	env_value = extract_env_var(env_key);
-	str = ft_strreplace(token->token, ft_strjoin_free(ft_strdup("$"), ft_strdup(env_key), 1), env_value);
+	env_val = extract_env_var(env_key);
+	str = ft_strreplace(token->token, ft_strjoin_free(ft_strdup("$"), ft_strdup(env_key), 1), env_val);
 	ft_printf("str={%s}\n", str);
 	token->token = ft_strdup(str);
 	free(str);
@@ -53,5 +52,5 @@ void	replace_env(t_list *list)
 	pos = ft_strchr_len(token->token, '$');
 	env_key = ft_strndup(token->token + pos + 1, get_var_env_len(token->token + pos + 1));
 	if (pos == 0 || token->token[pos - 1] != '\\') // si c'est sur que y'a pas de backslash avant go replace sans check
-		replace_str(token, pos, env_key);
+		replace_str(token, env_key);
 }

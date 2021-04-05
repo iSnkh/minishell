@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/03/25 19:04:43 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/03/30 15:57:07 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS			=		\
 						$(addprefix parser/, parser.c tokenizer.c tokenizer_utils.c env_manager.c) \
 						$(addprefix commands/, formater.c spliter.c utils.c) \
 						$(addprefix shell/, loop.c) \
-						$(addprefix utils/, global_utils.c) \
+						$(addprefix utils/, global_utils.c debug.c) \
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 

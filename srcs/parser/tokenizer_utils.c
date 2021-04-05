@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:54:36 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/30 14:03:23 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 13:58:18 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,6 @@ int		tokenize_quote(char *line)
 	if (ft_strlen(str) > 0)
 		ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
 	return (count + 2);
-}
-
-char	*dup_with_escaping(char *str, int size)
-{
-	char	*newstr;
-	int		count;
-	int		slash;
-
-	count = 0;
-	slash = 0;
-	ft_printf("str={%s}\n", str);
-	while (str[count] && count < size)
-	{
-		if (str[count] == '\\')
-			slash++;
-		count++;
-	}
-	newstr = ft_calloc(count, sizeof(char));
-	ft_printf("count=%d\n", count);
-	count = 0;
-	slash = 0;
-	while (str[count] && count < size)
-	{
-		if (str[count] != '\\')
-		{
-			newstr[slash] = str[count];
-			slash++;
-		}
-		// ft_printf("s={%c},D={%c}\n", str[count], newstr[count]);
-		count++;
-	}
-	ft_printf("str=%s\n", newstr);
-	return (newstr);
 }
 
 int		fucking_slash(char *line, int flags)	// TODO: BORDEL DE MERDE POURQUOI TU DECONNE SLASH DE MORT.
