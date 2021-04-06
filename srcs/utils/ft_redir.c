@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 15:00:01 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:47:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_init_mshell(t_mshell *ms)
 	ms->ret = 0;
 	ms->p = 0;
 	ms->ext = 0;
+	ms->path = NULL;
 }
 
 int	ft_parse_redir_v2(char **cmd, t_mshell *ms)

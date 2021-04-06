@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/01 17:39:45 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 16:57:51 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int main(int argc, char **argv, char **envp)
 
     
     ft_init_mshell(&ms);
-    ft_dup_env(envp);
+    ft_dup_env(envp,&ms);
     (void)argc;
     (void)argv;
     if (!(buffer = (char *)ft_calloc(sizeof(char), buf_size)))

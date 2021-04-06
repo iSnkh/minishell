@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/05 14:45:23 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 16:57:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct				s_mshell
 {
 	int						pfd[2];
 	int						p;
+	char					**path;
 	int						st_in;
 	int						st_out;
 	int						st_err;
@@ -61,7 +62,7 @@ int		main(int argc, char **argv, char **env);
 void	ft_exec_cmd(char **cmd, char **env, t_mshell *ms);
 void	free_array(char **array);
 void	free_lst(void);
-void	ft_dup_env(char **envp);
+void	ft_dup_env(char **envp, t_mshell *ms);
 void	ft_add_env_var(char *var);
 char	*ft_get_env_var(char *var);
 char	**ft_lst_to_array();
