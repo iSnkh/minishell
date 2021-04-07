@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:15:51 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/05 17:56:48 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 17:58:35 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	replace_str(t_token *token, char *env_key)
 
 	env_val = extract_env_var(env_key);
 	str = ft_strreplace(token->token, ft_strjoin_free(ft_strdup("$"), ft_strdup(env_key), 1), env_val);
-	ft_printf("str={%s}\n", str);
 	token->token = ft_strdup(str);
 	free(str);
-	// ft_printf()
 }
 
 void	replace_env(t_list *list)
