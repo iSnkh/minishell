@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:40:18 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 16:35:26 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 11:37:57 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ t_cmd	*cut_around_spliter(t_cmd *cmd, t_token *token)
 	cmd->flags |= type_to_flag(type);
 	ft_lstadd_back(&cmd->args, ft_lstnew(create_token(str, 0)));
 	ft_lstadd_back(&ms->cmds, ft_lstnew(cmd));
-	if (cmd->flags & CMD_DREDIR)
-		str = ft_strdup(token->token + (type - token->token) + 2);
-	else
-		str = ft_strdup(token->token + (type - token->token) + 1);
+	str = ft_strdup(token->token + (type - token->token) + 1);
 	free(token->token);
 	token->token = str;
 	return (new);

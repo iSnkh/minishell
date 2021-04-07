@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/30 15:58:09 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 17:05:38 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,9 @@ int		count_seps()
 			count = 0;
 			while (tokenLst->token[count])
 			{
-				if (tokenLst->token[count] == '>')
-				{
-					if (tokenLst->token[count + 1] && tokenLst->token[count + 1] == '>')
-						count++;
-					separators++;
-				}
-				if (tokenLst->token[count] == '<')
-					separators++;
 				if (tokenLst->token[count] == '|')
 					separators++;
 				if (tokenLst->token[count] == ';')
-					separators++;
-				if (tokenLst->token[count] == '<')
 					separators++;
 				count++;
 			}
@@ -80,6 +70,11 @@ int		count_seps()
 		list = list->next;
 	}
 	return (separators);
+}
+
+void		split_redirs()
+{
+
 }
 
 void		parse(char *line)
@@ -96,5 +91,6 @@ void		parse(char *line)
 		ms->cmds = ft_lstnew(create_cmd(ms->tokens));
 	else
 		split_into_commands();
+
 	// ft_lstclear(&ms->tokens, free); // TODO: Clear tokens here
 }
