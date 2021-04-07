@@ -24,3 +24,26 @@ ROADMAP ->
 	replace all env vars
 	split by space and format them
 	exec
+
+
+Des le debut je split sur les quotes, les double quotes et les backslash
+Ensuite je split sur les separator ';' '|'
+Ensuite je passe pour les backslash
+Ensuite je passe pour les $
+Ensuite je passe pour remove les spaces
+Ensuite je passe pour les redirect
+Ensuite je met la redirect en la gardant
+>bla echo salut
+
+j'enleve >bla
+je met filename redirect = bla
+echo salut
+fd_redir = open("bla") // ici un int fd
+< = 0
+> = 1
+>> = 1
+| = 1
+
+Ensuite je remet tout en ordre
+
+tokens[0] = cmd_name
