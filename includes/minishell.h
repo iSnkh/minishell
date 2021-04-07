@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/06 16:57:40 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:59:27 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct				s_mshell
 	int						pfd[2];
 	int						p;
 	char					**path;
+	int						status;
 	int						st_in;
 	int						st_out;
 	int						st_err;
@@ -109,5 +110,12 @@ void	shell_loop();
 //signal
 
 void	ft_signal_c(int sign);
+void ft_signal_slash(int i);
+void ft_silence(int i);
+void    ft_mgsignal(int key);
+void ft_nl(int i);
+
+void ft_exec_cmd2(char **cmd, char**env, t_mshell *ms);
+void ft_usepath(char **cmd, char**env,t_mshell *ms ,int i);
 
 #endif

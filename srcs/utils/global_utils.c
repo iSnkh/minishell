@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/06 17:08:13 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:59:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_array(char **array)
 	free(array);
 	array = NULL;
 }
-
+/*
 bool	get_abs_path(char **cmd, char **envp)
 {
 	char	*path;
@@ -85,7 +85,7 @@ bool	get_abs_path(char **cmd, char **envp)
 	else
 		return (true);
 }
-
+*/
 void free_lst(void)
 {
 	t_env	*index;

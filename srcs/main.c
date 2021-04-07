@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/06 16:57:51 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 17:00:36 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,17 @@ void ft_excute(t_mshell *ms, char **cmd)
     else
     {
         env = ft_lst_to_array();
-        if(get_abs_path(cmd,env) == true)
-            ft_exec_cmd(cmd,env,ms);
+       /* if(get_abs_path(cmd,env) == true)*/
+        ft_exec_cmd2(cmd,env,ms);
+        free(env);
+        env = NULL;
+        /*
         else
         {    
             ft_printf("Commande not found\n");
             free(env);
             env = NULL;
-        }
+        }*/
     }
 }
 
