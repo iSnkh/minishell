@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/12 14:02:26 by amonteli          #+#    #+#              #
-#    Updated: 2021/03/29 18:14:45 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/04/08 18:11:34 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS			=	\
 					$(addprefix lists/ft_lst, add_back.c add_front.c clear.c delone.c iter.c last.c map.c new.c size.c _append.c _append_lists.c) \
 					$(addprefix memory/ft_, bzero.c calloc.c memccpy.c memchr.c memcmp.c memcpy.c memmove.c memset.c) \
 					$(addprefix numbers/ft_, atoi.c itoa.c numlen.c lentostr.c lentochr.c ltoa.c lltoa_base.c ulltoa_base.c utoa.c utoa_base.c) \
-					$(addprefix strings/ft_, split.c strchr.c strdup.c strjoin.c strlcat.c strlcpy.c strlen.c strmapi.c strncmp.c strncpy.c strnstr.c strrchr.c strtrim.c substr.c strbaselen.c strchr_len.c strndup.c strcpy.c strreplace.c)	\
+					$(addprefix strings/ft_, split.c strchr.c strdup.c strjoin.c strlcat.c strlcpy.c strlen.c strmapi.c strncmp.c strncpy.c strnstr.c strrchr.c strtrim.c substr.c strbaselen.c strchr_len.c strndup.c strcpy.c strreplace.c strremove.c)	\
 					$(addprefix types/ft_, isalnum.c isalpha.c isascii.c isdigit.c isprint.c tolower.c toupper.c) \
 					$(addprefix tabs/ft_, clear_2d_tabs.c copy_2d_tabs.c) \
 					\

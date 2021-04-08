@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 14:03:52 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:14:57 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 18:11:51 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ void				lst_append_lsts(t_list *current, t_list *list);
 void				lst_append_after(t_list *current, t_list *list);
 char				*ft_strcpy(char *dest, char *src);
 char				*ft_strreplace(char *src, char *from, char *to);
+char				*ft_strremove(char *src, char c);
 
 #endif

@@ -5,6 +5,10 @@
 		"__bit_reference": "c",
 		"algorithm": "c",
 		"bitset": "c",
-		"unordered_map": "c"
-	}
+		"unordered_map": "c",
+		"iterator": "c",
+		"typeinfo": "c",
+		"libft.h": "c"
+	},
+	"discord.enabled": true
 }

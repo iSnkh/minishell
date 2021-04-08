@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:54:36 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/05 13:58:18 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 11:33:38 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		tokenize_dquote(char *line)
 			ft_lstadd_back(&ms->tokens, ft_lstnew(create_token(str, flags)));
 		return (count + 2);
 	}
-	flags |= MS_SLASH;
 	return (fucking_slash(line, flags));
 }
 

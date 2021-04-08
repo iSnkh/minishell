@@ -19,15 +19,15 @@ parsing:
 	- split a chaque si c'est pas escaper (backslash escape, quotes aussi et dquotes)
 
 ROADMAP ->
-	tokenize all quoted or double quoted string skipping \
+	tokenize all quoted or double quoted string skipping \=
 	split by ;
 	replace all env vars
 	split by space and format them
 	exec
 
 
-Des le debut je split sur les quotes, les double quotes et les backslash
-Ensuite je split sur les separator ';' '|'
+Des le debut je split sur les quotes, les double quotes et les backslash OK
+Ensuite je split sur les separator ';' '|' OK
 Ensuite je passe pour les backslash
 Ensuite je passe pour les $
 Ensuite je passe pour remove les spaces
