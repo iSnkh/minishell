@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/07 17:00:36 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:44:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,15 @@ void ft_excute(t_mshell *ms, char **cmd)
     else
     {
         env = ft_lst_to_array();
-       /* if(get_abs_path(cmd,env) == true)*/
-        ft_exec_cmd2(cmd,env,ms);
+		if(ft_get_env_var("PATH="))
+		{
+        	ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
+			ft_exec_cmd2(cmd,env,ms);
+		}
+        else 
+            ft_printf("minishell: Command not found\n");
         free(env);
         env = NULL;
-        /*
-        else
-        {    
-            ft_printf("Commande not found\n");
-            free(env);
-            env = NULL;
-        }*/
     }
 }
 
@@ -103,7 +101,7 @@ int main(int argc, char **argv, char **envp)
         return (EXIT_FAILURE);
     }
     signal(SIGINT,&ft_signal_c);
-    signal(SIGQUIT,SIG_IGN);
+    signal(SIGQUIT,&ft_silence);
     write(1,"minishell> ",11);
     while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
     {

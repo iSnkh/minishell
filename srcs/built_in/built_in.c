@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:47:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:15:47 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	built_in_cd(char *path)
 	else
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR);
+		ft_putstr_fd(path,STDERR);
+		ft_putstr_fd(": ",STDERR);
 		ft_putstr_fd(strerror(errno), STDERR);
 		ft_putstr_fd("\n", STDERR);
 	}
