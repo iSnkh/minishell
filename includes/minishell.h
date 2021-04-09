@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/07 15:59:27 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 15:48:56 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		ft_check_correct_var(char *var);
 
 //libft
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strncat(char *dest, const char *src, size_t n);
 
 //redir
 

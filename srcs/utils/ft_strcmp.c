@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:49:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:55:09 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 15:50:18 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,17 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+char	*ft_strncat(char *dest, const char *src, size_t n)
+{
+    size_t dest_len = ft_strlen(dest);
+    size_t i;
+
+	i = -1;
+	while(++i < n && src[i])
+        dest[dest_len + i] = src[i];
+	dest[dest_len + i] = 0;
+
+    return dest;
 }
