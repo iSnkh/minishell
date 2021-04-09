@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/08 14:43:42 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 15:18:22 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ void	ft_add_env_var(char *var)
 	}
 }
 
-static void ft_affiche_path(char **path)
-{
-	int i = 0;
-	while(path[i])
-	{
-		printf("%s\n",path[i]);
-		i++;
-	}
-}
-
 void	ft_dup_env(char **envp, t_mshell *ms)
 {
 	int	i;
@@ -68,8 +58,6 @@ void	ft_dup_env(char **envp, t_mshell *ms)
 	i = 0;
 	while (envp[i])
 	{
-		/*if(ft_strncmp(envp[i],"PATH=",5) == 0)
-			ms->path = ft_split(envp[i] + 5, ':');*/
 		ft_add_env_var(ft_strdup(envp[i]));
 		i++;
 	}
