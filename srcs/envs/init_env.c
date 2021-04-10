@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/09 15:18:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 18:01:25 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_add_env_var(char *var)
 	}
 }
 
-void	ft_dup_env(char **envp, t_mshell *ms)
+void	ft_dup_env(char **envp)
 {
 	int	i;
 

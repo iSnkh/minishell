@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:45:10 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/08 15:35:35 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 14:45:21 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_loop()
+void	shell_loop(void)
 {
 
 }

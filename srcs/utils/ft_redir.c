@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/08 15:05:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 14:42:19 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_init_mshell(t_mshell *ms)
 {
-	int i;
+	int	i;
 
 	ms->st_in = STDIN;
 	ms->st_out = STDOUT;
@@ -23,7 +23,7 @@ void	ft_init_mshell(t_mshell *ms)
 	ms->p = 0;
 	ms->ext = 0;
 	i = 0;
-	if(ms->path)
+	if (ms->path)
 		free(ms->path);
 	ms->path = NULL;
 }

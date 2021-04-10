@@ -6,158 +6,117 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/08 16:44:16 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 18:01:35 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <errno.h>
 
-bool is_built_in(char *cmd)
+bool	is_built_in(char *cmd)
 {
-    const char  *built_in[]= {"cd", "pwd", "env", "echo", "export", "unset","exit", NULL};
-    int         i;
+	char	**built_in;
+	int		i;
 
-    i = 0;
-
-    while(built_in[i])
-    {
-        
-        if(!strcmp(built_in[i], cmd))
-            return (true);
-        i++;
-    }
-    return (false);
-}
-
-int exec_built_in(char **built_in, t_mshell *ms)
-{
-    char *pwd;
-
-    if (!strcmp(built_in[0], "pwd"))
-    {
-        pwd = built_in_pwd(built_in[0]);
-        ft_putstr_fd(pwd,ms->st_out);
-	    ft_putstr_fd("\n",ms->st_out);
-    }
-    else if (!strcmp(built_in[0], "cd"))
-        built_in_cd(built_in[1]);
-    else if (!strcmp(built_in[0], "env"))
-        built_in_env(ms);
-    else if (!strcmp(built_in[0], "echo"))
-        built_in_echo(built_in, ms);
-    else if (!strcmp(built_in[0], "export"))
-        built_in_export(built_in, ms);
-    else if (!strcmp(built_in[0], "unset"))
-        built_in_unset(built_in);
-    else if (!strcmp(built_in[0], "exit"))
-    {
-        built_in_exit(built_in, ms);
-        return (1);
-    }
-    return(0);
-}
-
-void ft_excute(t_mshell *ms, char **cmd)
-{
-    char **env;
-
-    env = NULL;
-    if (cmd[0] == NULL)
-            ft_printf("");
-    else if (is_built_in(cmd[0]) == true)
-        ms->ext = exec_built_in(cmd, ms);
-    else
-    {
-        env = ft_lst_to_array();
-		if(ft_get_env_var("PATH="))
+	i = 0;
+	built_in = ft_split("cd pwd env echo export unset exit", ' ');
+	while (built_in[i])
+	{
+		if (!strcmp(built_in[i], cmd))
 		{
-        	ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
-			ft_exec_cmd2(cmd,env,ms);
+			free(built_in);
+			return (true);
 		}
-        else 
-            ft_printf("minishell: Command not found\n");
-        free(env);
-        env = NULL;
-    }
+		i++;
+	}
+	free(built_in);
+	return (false);
 }
 
-int main(int argc, char **argv, char **envp)
+int	exec_built_in(char **built_in, t_mshell *ms)
 {
-    first = NULL;
-    char *buffer = NULL;
-    size_t buf_size = 2048;
-    char **cmd = NULL;
-    t_mshell ms;
+	char	*pwd;
 
-    
-    ft_init_mshell(&ms);
-    ft_dup_env(envp,&ms);
-    (void)argc;
-    (void)argv;
-    if (!(buffer = (char *)ft_calloc(sizeof(char), buf_size)))
-    {
-        strerror(errno);
-        return (EXIT_FAILURE);
-    }
-    signal(SIGINT,&ft_signal_c);
-    signal(SIGQUIT,&ft_silence);
-    write(1,"minishell> ",11);
-    while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
-    {
-        
-        cmd = ft_split(buffer, ' '); // parse
-        int i = 0 ;
-        while (cmd[i])
-        {
-            ft_printf("cmd[%d] = %s\n",i,cmd[i]);
-            i++;
-        }
-        if (ft_parse_redir_v2(cmd, &ms) == 1)
-            ft_excute(&ms, cmd);
-        if (ms.ext == 0)
-            write(1,"minishell> ",11);
-        if (ms.ext == 1)
-            break;
-        free_array(cmd);
-        ft_clear_app(&ms);
-    }
-    if(ms.ext != 1)
-        ft_printf("exit\n");
-    free_lst();
-    printf("Bye \n");
-    free(buffer);
-    return(ms.ret);
+	if (!strcmp(built_in[0], "pwd"))
+	{
+		pwd = built_in_pwd(built_in[0]);
+		ft_putstr_fd(pwd, ms->st_out);
+		ft_putstr_fd("\n", ms->st_out);
+	}
+	else if (!strcmp(built_in[0], "cd"))
+		built_in_cd(built_in[1]);
+	else if (!strcmp(built_in[0], "env"))
+		built_in_env(ms);
+	else if (!strcmp(built_in[0], "echo"))
+		built_in_echo(built_in, ms);
+	else if (!strcmp(built_in[0], "export"))
+		built_in_export(built_in, ms);
+	else if (!strcmp(built_in[0], "unset"))
+		built_in_unset(built_in);
+	else if (!strcmp(built_in[0], "exit"))
+	{
+		built_in_exit(built_in, ms);
+		return (1);
+	}
+	return (0);
 }
-/*
-void ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer, int buf_size)
-{
-    char *buffer = NULL;
-    size_t buf_size = 2048;
 
-    buffer = NULL;
-    buf_size = 2048;  
-    while (get_next_line(0, &buffer) > 0 && ms.ext != 1)
-    {
-        if (!(buffer = (char *)ft_calloc(sizeof(char), buf_size)))
-        {
-            strerror(errno);
-            return (EXIT_FAILURE);
-        }
-        cmd = ft_split(buffer, ' '); // parse
-        int i = 0 ;
-        while (cmd[i])
-        {
-            ft_printf("cmd[%d] = %s\n",i,cmd[i]);
-            i++;
-        }
-        if (ft_parse_redir_v2(cmd, &ms) == 1)
-            ft_excute(&ms, cmd);
-        if (ms.ext == 0)
-            write(1,"minishell> ",11);
-        if (ms.ext == 1)
-            break;
-        free_array(cmd);
-        ft_clear_app(&ms);
-    }
-}*/
+int	minishell(char **envp)
+{
+	char		*buffer;
+	size_t		buf_size;
+	char		**cmd;
+	t_mshell	ms;
+
+	cmd = NULL;
+	first = NULL;
+	buffer = NULL;
+	buf_size = 2048;
+	ft_init_mshell(&ms);
+	ft_dup_env(envp);
+	buffer = (char *)ft_calloc(sizeof(char), buf_size);
+	if (!buffer)
+	{
+		strerror(errno);
+		return (EXIT_FAILURE);
+	}
+	signal(SIGINT, &ft_signal_c);
+	signal(SIGQUIT, &ft_silence);
+	write(1, "minishell> ", 11);
+	ft_gnl_minishell(&ms, cmd, buffer);
+	free_lst();
+	ft_printf("Bye \n");
+	free(buffer);
+	return (ms.ret);
+}
+
+void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
+{
+	int	i;
+
+	while (get_next_line(0, &buffer) > 0 && ms->ext != 1)
+	{
+		cmd = ft_split(buffer, ' ');
+		i = 0;
+		if (ft_parse_redir_v2(cmd, ms) == 1)
+			ft_excute(ms, cmd);
+		if (ms->ext == 0)
+			write(1, "minishell> ", 11);
+		if (ms->ext == 1)
+			break ;
+		free_array(cmd);
+		ft_clear_app(ms);
+	}
+	if (ms->ext != 1)
+		ft_printf("exit\n");
+	free(buffer);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	(void)argv;
+	if (argc == 1)
+		return (minishell(envp));
+	else
+		return (0);
+}
