@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:44:30 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/07 18:13:47 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/11 12:39:17 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../libft/includes/libft.h"
 
 #define CMD_SEPS "|;"
-#define DQUOTE_EFFECT "$\"\\"
+#define DQUOTE_EFFECT "\"\\"
 
 enum					e_flags_token
 {

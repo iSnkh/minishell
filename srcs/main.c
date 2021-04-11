@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/08 18:11:16 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/11 11:51:49 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ void	minishell(char **env)
 	shell_loop();
 }
 
+
 int	main(int argc, char **args, char **env)
 {
 	(void)args;
 	if (argc != 1)
 		printf("error please call ./minishell");
 	minishell(env);
+	// char	*str = remove_char("SALUT \"", '\\');
+
+
+	// ft_printf("{%s}\n", str);
 }
