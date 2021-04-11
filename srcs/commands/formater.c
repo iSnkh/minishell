@@ -6,23 +6,41 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 19:03:28 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/11 12:46:21 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/11 15:49:36 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+int			has_dollar(char *str)
+{
+	int		count;
+
+	count = 0;
+	while (str[count])
+	{
+		if (str[count] == '\\' && str[count + 1] == '$')
+			count += 2;
+		if (str[count] == '$')
+			return (count);
+		else
+			count++;
+	}
+	return (-1);
+}
+
 void	cmd_replace_env(t_cmd *cmd)
 {
 	t_list	*list;
 	t_token	*token;
-	int		count;
+	int		res;
 
 	list = cmd->args;
 	while (list)
 	{
 		token = (t_token *)list->content;
-		while (ft_strchr(token->token, '$') && !(token->flags & MS_SLASH || token->flags & MS_QUOTES))
+		while (has_dollar(token->token) != -1 && !(token->flags & MS_SLASH || token->flags & MS_QUOTES))
 		{
 			replace_env(list);
 		}
@@ -109,8 +127,9 @@ void	format_commands(void)
 	while (cmds)
 	{
 		cmd = (t_cmd *)cmds->content;
-		cmd_replace_slash(cmd);
+		// cmd_split_space(cmd);
 		cmd_replace_env(cmd);
+		cmd_replace_slash(cmd);
 		// cmd_replace_slash(cmd);
 		//	FORMAT SPACES
 		//	SET ARG 0 TO CMD NAME & SET FLAG PARSED
