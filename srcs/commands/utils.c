@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/13 20:49:48 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/18 15:38:46 by wperu            ###   ########lyon.fr   */
+/*   Created: 2021/03/23 16:25:02 by amonteli          #+#    #+#             */
+/*   Updated: 2021/03/23 18:11:36 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+t_cmd	*create_cmd(t_list *tokens)
 {
-	char	*tab;
+	t_cmd	*cmd;
 
-	if (!(tab = (char *)malloc(nmemb * size)))
+	cmd = malloc(sizeof(t_cmd));
+	if (!cmd)
 		return (NULL);
-	return (ft_memset(tab, 0, nmemb * size));
+	cmd->flags = 0;
+	cmd->cmd_name = "";
+	cmd->args = tokens;
+	return (cmd);
 }

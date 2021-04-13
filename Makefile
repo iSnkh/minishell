@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/01/27 11:44:01 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/04/13 17:35:44 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,13 @@ CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \
-						$(addprefix reader/, reader.c) \
-						$(addprefix parser/, parser.c) \
-						$(addprefix utils/, global_utils.c) \
+						$(addprefix shell/, loop.c) \
+						$(addprefix parser/, parser.c tokenizer.c tokenizer_utils.c env_manager.c) \
+						$(addprefix commands/, formater.c spliter.c utils.c) \
+						$(addprefix utils/, global_utils.c ft_strcmp.c ft_redir.c ft_signal.c global_utils2.c debug.c) \
+						$(addprefix built_in/, built_in.c export.c export_utils.c export_utils2.c unset.c ft_built_exit.c) \
+						$(addprefix envs/, init_env.c) \
+						$(addprefix exec/, ft_exec.c)
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 

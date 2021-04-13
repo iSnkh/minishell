@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_env.c                                         :+:      :+:    :+:   */
+/*   rules.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/08 15:37:06 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/02/02 14:25:55 by amonteli          #+#    #+#             */
+/*   Updated: 2021/02/23 10:52:50 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(int args_count, char **args, char **env)
+int			check_quotes(char *line)
 {
+	int		count;
 
+	count = 0;
+}
+
+int			validate_line(char *line)
+{
+	return (check_quotes(line));
 }
