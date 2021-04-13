@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:15:51 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/11 15:53:15 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 15:54:28 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void		replace_env(t_list *list)
 	t_list	*lst;
 	int		pos;
 	char	*env_key;
-	char	*str;
 
 	token = (t_token *)list->content;
 	pos = get_pos_no_escaped(token->token);
@@ -74,7 +73,7 @@ void		replace_env(t_list *list)
 	env_key = ft_strndup(token->token + pos + 1, get_var_env_len(token->token + pos + 1));
 	ft_lstadd_back(&lst, ft_lstnew(create_token(extract_env_var(env_key), token->flags + MS_ENV)));
 	ft_lstadd_back(&lst, ft_lstnew(create_token(token->token + pos + 1 + ft_strlen(env_key), token->flags)));
-	ft_printf("pos=%d, env=%s, after=%s\n", pos, env_key, token->token + pos + 1 + ft_strlen(env_key));
+	// ft_printf("pos=%d, env=%s, after=%s\n", pos, env_key, token->token + pos + 1 + ft_strlen(env_key));
 	lst_append_lsts(list, lst);
 	token->token = ft_strdup("");
 }

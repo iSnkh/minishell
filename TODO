@@ -28,8 +28,8 @@ ROADMAP ->
 
 Des le debut je split sur les quotes, les double quotes et les backslash OK
 Ensuite je split sur les separator ';' '|' OK
-Ensuite je passe pour les backslash
-Ensuite je passe pour les $
+Ensuite je passe pour les $ OK
+Ensuite je passe pour les backslash OK
 Ensuite je passe pour remove les spaces
 Ensuite je passe pour les redirect
 Ensuite je met la redirect en la gardant

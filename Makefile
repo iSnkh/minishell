@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/03/30 15:57:07 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/04/13 15:57:54 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \
-						$(addprefix env/, init_env.c) \
 						$(addprefix exec/, exec.c) \
 						$(addprefix parser/, parser.c tokenizer.c tokenizer_utils.c env_manager.c) \
 						$(addprefix commands/, formater.c spliter.c utils.c) \
