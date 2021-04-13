@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/25 13:50:20 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/13 15:56:56 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ t_token	*create_token(char *token, int flags)
 	return (lst);
 }
 
-int		is_escaped(t_token *token)
+int	is_escaped(t_token *token)
 {
-	if (token->flags & MS_SLASH || token->flags & MS_QUOTES || token->flags & MS_DQUOTES)
+	if (token->flags & MS_SLASH
+		|| token->flags & MS_QUOTES || token->flags & MS_DQUOTES)
 		return (1);
 	return (0);
 }
 
-int		is_cmd_sep(char c)
+int	is_cmd_sep(char c)
 {
 	if (ft_strchr(CMD_SEPS, c))
 		return (1);
