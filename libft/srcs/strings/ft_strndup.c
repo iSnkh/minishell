@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 17:14:11 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:22:52 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/02/03 12:11:42 by amonteli          #+#    #+#             */
+/*   Updated: 2021/02/03 12:13:26 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+char	*ft_strndup(const char *s, int n)
 {
-	unsigned int	count;
+	int		count;
+	char	*tab;
 
 	count = 0;
-	while (src[count] && n > 0)
-	{
-		dest[count] = src[count];
+	while (s[count] && count < n)
 		count++;
-		n--;
-	}
-	while (n > 0)
-	{
-		dest[count] = '\0';
-		count++;
-		n--;
-	}
-	free(src);
-	return (dest);
+	if (!(tab = (char *)malloc((count + 1) * sizeof(char))))
+		return (NULL);
+	count = -1;
+	while (s[++count] && count < n)
+		tab[count] = s[count];
+	tab[count] = '\0';
+	return (tab);
 }

@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_strremove.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 17:14:11 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:22:52 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/04/08 18:10:59 by amonteli          #+#    #+#             */
+/*   Updated: 2021/04/08 18:11:13 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+char	*ft_strremove(char *src, char c)
 {
-	unsigned int	count;
+	int		count;
+	int		occurence;
+	char	*str;
 
 	count = 0;
-	while (src[count] && n > 0)
+	occurence = 0;
+	while (src[count])
 	{
-		dest[count] = src[count];
+		if (src[count] == c)
+			occurence++;
 		count++;
-		n--;
 	}
-	while (n > 0)
+	str = malloc(sizeof(char) * (ft_strlen(src) - occurence + 1));
+	count = 0;
+	occurence = 0;
+	while (src[count])
 	{
-		dest[count] = '\0';
+		str[occurence] = src[count];
+		if (src[count] != c)
+			occurence++;
 		count++;
-		n--;
 	}
-	free(src);
-	return (dest);
+	str[occurence] = '\0';
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/13 17:29:02 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 14:14:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_mshell
 
 typedef t_mshell g_mshell;
 
+g_mshell *ms;
+
 int		main(int argc, char **argv, char **env);
 
 int		minishell(char **envp);
@@ -110,23 +112,23 @@ void	ft_add_env_var(char *var);
 char	*ft_get_env_var(char *var);
 char	**ft_lst_to_array(void);
 bool	get_abs_path(char **cmd, char **envp);
-void	ft_excute(t_mshell *ms, char **cmd);
+void	ft_excute(t_mshell *ms, t_cmd *cmd);
 
 // built-in
 
 void	ft_replace_env(char *var, char *name); // en test
 void	ft_joinvar(char *var, t_env *tmp);
 void	ft_print_export(char *var, t_mshell *ms);
-void	built_in_export(char **cmd, t_mshell *ms);
-void	built_in_unset(char **cmd);
+void	built_in_export(struct s_list *args, t_mshell *ms);
+void	built_in_unset(struct s_list *args);
 void	built_in_cd(char *path);
 void	ft_change_path(char *oldpwd, char *pwd, char *pwd_ptr);
-void	built_in_exit(char **cmd, t_mshell *msh);
+void	built_in_exit(char *cmd, t_mshell *msh);
 char	*built_in_pwd(char *cmd);
 void	built_in_env(t_mshell *ms);
-int		exec_built_in(char **built_in, t_mshell *ms);
+int		exec_built_in(t_cmd *cmd, t_mshell *ms);
 bool	is_built_in(char *cmd);
-void	built_in_echo(char **cmd, t_mshell *ms);
+void	built_in_echo(t_list *cmd, t_mshell *ms);
 void	ft_display_export(t_mshell *ms);
 void	ft_add_env_export(char *var);
 void	ft_manage_add_env(char *var, t_env *tmp);
@@ -143,10 +145,10 @@ char	*ft_strncat(char *dest, const char *src, size_t n);
 
 //redir
 
-void	ft_init_mshell(t_mshell *ms);
+void    ft_init_mshell();
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
 int		ft_redir(char **cmd, t_mshell *ms);
-void	ft_clear_app(t_mshell *ms);
+void	ft_clear_app();
 void	ft_pipe(t_mshell *ms, char **cmd);
 void	shell_loop(void);
 
@@ -157,16 +159,13 @@ void	ft_signal_slash(int i);
 void	ft_silence(int i);
 void	ft_nl(int i);
 void	ft_manage_signal(int key);
-void	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms);
-void	ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
-void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
+void	ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms);
+void	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i);
+void	ft_gnl_minishell(t_mshell *ms, char *buffer);
 
 //parsing
-
 void	shell_loop();
-
 void	*print_tokens(void *content);
-
 
 // global_utils.c
 void	clear_console();
@@ -195,13 +194,12 @@ t_cmd	*create_cmd(t_list *tokens);
 
 // commands/spliter.c
 void	split_into_commands();
-
+void	cmd_remove_useless_node(t_cmd *cmd);
 // exec
 void	exec(void);
 
 //	commands/formater.c
 void	format_commands(void);
-
 
 // TODO: DEBUG RM THAT
 void	*print_commands(void *content);

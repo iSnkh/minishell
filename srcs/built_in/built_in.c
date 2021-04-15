@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/09 15:49:15 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 15:50:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	built_in_env(t_mshell *ms)
 {
 	t_env	*tmp;
 
-	tmp = first;
+	tmp = ms->env;
 	while (tmp)
 	{
 		if (ft_chr(tmp->var, '=') != (int)ft_strlen(tmp->var))
@@ -89,13 +89,13 @@ void	built_in_env(t_mshell *ms)
 	}
 }
 
-void	built_in_echo(char **cmd, t_mshell *ms)
+void	built_in_echo(struct s_list *args, t_mshell *ms)
 {
-	if (!(strcmp(cmd[1], "-n")))
-		ft_putstr_fd(cmd[2], ms->st_out);
-	else if ((strcmp(cmd[1], "-n")))
+	if (!(ft_strcmp(args->content, "-n")))
+		ft_putstr_fd(args->next->content, ms->st_out);
+	else if ((ft_strcmp(args->content, "-n")))
 	{
-		ft_putstr_fd(cmd[1], ms->st_out);
+		ft_putstr_fd(args->content, ms->st_out);
 		ft_putstr_fd("\n", ms->st_out);
 	}
 }

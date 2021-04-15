@@ -6,26 +6,26 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:08:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/10 18:01:06 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 17:18:14 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
+void	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 {
 	struct stat		buf;
 	char			*tmp;
 
-	while (cmd[0] && ms->path && ms->path[i])
+	while (cmd->cmd_name && ms->path && ms->path[i])
 	{
-		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd[0]);
+		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->cmd_name);
 		if (lstat(tmp, &buf) == 0)
 		{
 			if (fork() == 0)
 			{
-				if (execve(tmp, cmd, env) < 0
-					&& ft_printf("%s not an executable\n", cmd[0]))
+				if (execve(tmp, cmd->args->content, env) < 0
+					&& ft_printf("%s not an executable\n", cmd->cmd_name))
 					exit(EXIT_SUCCESS);
 			}
 			ft_manage_signal(1);
@@ -38,21 +38,21 @@ void	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
 	}
 }
 
-void	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
+void	ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms)
 {
 	int	fd;
 
-	fd = open(cmd[0], 0);
+	fd = open(cmd->cmd_name, 0);
 	if (fd > 0 && !close(fd))
 	{
 		if (ms->st_out != STDOUT)
 		{
-			if (execve(cmd[0], cmd, env) < 0
-				&& ft_printf("%s not an executable\n", cmd[0]))
+			if (execve(cmd->cmd_name, cmd->args->content, env) < 0
+				&& ft_printf("%s not an executable\n", cmd->cmd_name))
 				exit(EXIT_SUCCESS);
 		}
-		else if (fork() == 0 && execve(cmd[0], cmd, env) < 0
-			&& ft_printf("%s not an executable\n", cmd[0]))
+		else if (fork() == 0 && execve(cmd->cmd_name, cmd->args->content, env) < 0
+			&& ft_printf("%s not an executable\n", cmd->cmd_name))
 			exit(EXIT_SUCCESS);
 		ft_manage_signal(2);
 		wait(&ms->status);
@@ -62,14 +62,14 @@ void	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
 		ft_usepath(cmd, env, ms, 0);
 }
 
-void	ft_excute(t_mshell *ms, char **cmd)
+void	ft_excute(t_mshell *ms, t_cmd *cmd)
 {
 	char	**env;
 
 	env = NULL;
-	if (cmd[0] == NULL)
-		ft_printf("");
-	else if (is_built_in(cmd[0]) == true)
+	if (cmd->cmd_name == NULL)
+		return ;
+	else if (is_built_in(cmd->cmd_name) == true)
 		ms->ext = exec_built_in(cmd, ms);
 	else
 	{

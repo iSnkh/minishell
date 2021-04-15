@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_lst_append_lists.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 17:14:11 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:22:52 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/03/22 15:58:29 by amonteli          #+#    #+#             */
+/*   Updated: 2021/03/22 17:17:57 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+void	lst_append_lsts(t_list *current, t_list *list)
 {
-	unsigned int	count;
+	t_list	*start_next;
+	t_list	*index;
 
-	count = 0;
-	while (src[count] && n > 0)
+	if (!current || !list)
+		return ;
+	if (!current->next)
 	{
-		dest[count] = src[count];
-		count++;
-		n--;
+		current->next = list;
+		return ;
 	}
-	while (n > 0)
-	{
-		dest[count] = '\0';
-		count++;
-		n--;
-	}
-	free(src);
-	return (dest);
+	start_next = current->next;
+	current->next = list;
+	index = list;
+	while (index->next)
+		index = index->next;
+	index->next = start_next;
 }

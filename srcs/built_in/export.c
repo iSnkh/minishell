@@ -6,24 +6,32 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:34:54 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:36:42 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 15:39:41 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	built_in_export(char **cmd, t_mshell *ms)
+void	built_in_export(struct s_list *args, t_mshell *ms)
 {
-	if (cmd[1] == NULL || ms->st_out != STDOUT)
+	
+	if (args->content == NULL || ms->st_out != STDOUT)
 		ft_display_export(ms);
-	else if (ft_check_correct_var(ft_trim(cmd[1], 34)) == 0)
+	else
 	{
-		ft_putstr_fd("minishell: export: `", STDERR);
-		ft_putstr_fd(cmd[1], STDERR);
-		ft_putstr_fd("': not a valid identifier\n", STDERR);
+		while(args->content)
+		{
+			if (ft_check_correct_var(ft_trim(args->content, 34)) == 0)
+			{
+				ft_putstr_fd("minishell: export: `", STDERR);
+				ft_putstr_fd(args->content, STDERR);
+				ft_putstr_fd("': not a valid identifier\n", STDERR);
+			}
+			else if (args->content)//&& (cmd->args->content[0] != '='))
+				ft_add_env_export(ft_trim(args->content, 34));
+		}
+		args = args->next;
 	}
-	else if (cmd[1] && cmd[1][0] != '=')
-		ft_add_env_export(ft_trim(cmd[1], 34));
 }
 
 void	ft_print_export(char *var, t_mshell *ms)
@@ -53,7 +61,7 @@ void	ft_display_export(t_mshell *ms)
 {
 	t_env	*tmp;
 
-	tmp = first;
+	tmp = ms->env;
 	while (tmp)
 	{
 		write(ms->st_in, "declare -x ", 11);

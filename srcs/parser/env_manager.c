@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:15:51 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/11 15:53:15 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 17:19:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		replace_env(t_list *list)
 	t_list	*lst;
 	int		pos;
 	char	*env_key;
-	char	*str;
+	//char	*str;
 
 	token = (t_token *)list->content;
 	pos = get_pos_no_escaped(token->token);

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_built_exit.c                                    :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/19 08:31:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/14 15:10:10 by wperu            ###   ########lyon.fr   */
+/*   Created: 2021/03/29 17:57:32 by amonteli          #+#    #+#             */
+/*   Updated: 2021/03/29 18:13:01 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	built_in_exit(char *cmd, t_mshell *msh)
+char	*ft_strcpy(char *dest, char *src)
 {
-	ft_putstr_fd("exit\n", STDERR);
-	if (cmd)
-		msh->ret = ft_atoi(cmd);
-	else
-		msh->ret = 0;
+	unsigned int	count;
+
+	count = 0;
+	while (src[count])
+	{
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = '\0';
+	return (dest);
 }

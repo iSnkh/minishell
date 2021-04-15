@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_strreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 17:14:11 by amonteli          #+#    #+#             */
-/*   Updated: 2021/03/29 18:22:52 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/03/29 18:14:29 by amonteli          #+#    #+#             */
+/*   Updated: 2021/03/29 18:14:36 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+char	*ft_strreplace(char *src, char *from, char *to)
 {
-	unsigned int	count;
+	char	*str;
+	int		len;
+	int		pos;
 
-	count = 0;
-	while (src[count] && n > 0)
-	{
-		dest[count] = src[count];
-		count++;
-		n--;
-	}
-	while (n > 0)
-	{
-		dest[count] = '\0';
-		count++;
-		n--;
-	}
-	free(src);
-	return (dest);
+	len = (ft_strlen(src) - ft_strlen(from)) + ft_strlen(to) + 1;
+	str = malloc(len * sizeof(char));
+	if (!str)
+		return (NULL);
+	pos = (int)(ft_strnstr(src, from, ft_strlen(src)) - src);
+	ft_strncpy(str, src, pos);
+	ft_strcpy(str + pos, to);
+	ft_strcpy(str + pos + ft_strlen(to), src + pos + ft_strlen(from));
+	return (str);
 }

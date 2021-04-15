@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/10 14:43:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 16:51:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_lst(void)
 	t_env	*index;
 	t_env	*tmp;
 
-	index = first;
+	index = ms->env;
 	tmp = index;
 	while (index != NULL)
 	{
@@ -51,7 +51,7 @@ char	**ft_lst_to_array(void)
 	int		i;
 
 	array = NULL;
-	tmp = first;
+	tmp = ms->env;
 	i = 0;
 	while (tmp)
 	{
@@ -61,7 +61,7 @@ char	**ft_lst_to_array(void)
 	array = (char **)ft_calloc(sizeof(char *), i + 1);
 	if (!array)
 		exit(-1);
-	tmp = first;
+	tmp = ms->env;
 	i = 0;
 	while (tmp)
 	{
