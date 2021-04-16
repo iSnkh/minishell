@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/07 17:05:38 by amonteli         ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   parser.c                                         .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: amonteli <amontelimart@gmail.com>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/01/08 15:43:41 by amonteli     #+#   ##    ##    #+#       */
+/*   Updated: 2021/04/16 16:33:20 by amonteli    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 void	flags_tokens()
@@ -80,6 +80,8 @@ void		split_redirs()
 void		parse(char *line)
 {
 	int		i;
+	t_token	*token;
+	t_cmd	*cmd;
 
 	i = 0;
 	if (tokenize(line) == -1)
@@ -88,7 +90,14 @@ void		parse(char *line)
 		return;
 	}
 	if (!count_seps())
-		ms->cmds = ft_lstnew(create_cmd(ms->tokens));
+	{
+		token = (t_token *)ms->tokens;
+		cmd = create_cmd(NULL);
+
+		
+		// ms->cmds = ft_lstnew(create_cmd());
+
+	}
 	else
 		split_into_commands();
 

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   formater.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 19:03:28 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/13 17:48:18 by amonteli         ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   formater.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: amonteli <amontelimart@gmail.com>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2021/03/25 19:03:28 by amonteli     #+#   ##    ##    #+#       */
+/*   Updated: 2021/04/16 15:32:22 by amonteli    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 
@@ -114,32 +114,18 @@ void	cmd_replace_slash(t_cmd *cmd)
 	}
 }
 
+void	lst_del_next(t_list *list)
+{
+
+}
+
 void	cmd_remove_useless_node(t_cmd *cmd)
 {
 	t_list	*cmdArgs;
 	t_list	*nextArgs;
 	t_token	*token;
 
-	cmdArgs = cmd->args;
-	nextArgs = cmd->args->next;
-	ft_printf("len=%d, s{%s}\n", ft_strlen(((t_token *)cmd->args)->token), ((t_token *)cmd->args)->token);
-	if (ft_strlen(((t_token *)cmd->args->content)->token) == 0)
-	{
-		ft_printf("lossssa");
-		free(cmd->args);
-		cmd->args = nextArgs;
-		nextArgs = nextArgs->next;
-	}
-	while (cmd->args)
-	{
-		token = (t_token *)cmd->args->content;
-
-		if (ft_strlen(token->token) == 0)
-		{
-
-		}
-		cmd->args = cmd->args->next;
-	}
+	ft_printf("first_token={%s}\n", ((t_token *)cmd->args->content)->token);
 }
 
 void	format_commands(void)
@@ -148,13 +134,14 @@ void	format_commands(void)
 	t_cmd	*cmd;
 
 	cmds = ms->cmds;
+	ft_lstclear(&ms->tokens, free);
 	while (cmds)
 	{
 		cmd = (t_cmd *)cmds->content;
 		// cmd_split_space(cmd);
 		cmd_replace_env(cmd);
 		cmd_replace_slash(cmd);
-		cmd_remove_useless_node(cmd);
+		// cmd_remove_useless_node(cmd);
 
 
 		//
@@ -167,6 +154,6 @@ void	format_commands(void)
 
 		cmds = cmds->next;
 	}
-	ft_lstmap(ms->cmds, &print_commands, NULL);
+	ft_lstmap(ms->tokens, &print_tokens, NULL);
 }
 
