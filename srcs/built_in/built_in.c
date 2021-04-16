@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/15 18:37:58 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:10:13 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,26 @@ void	built_in_env(t_mshell *ms)
 void	built_in_echo(char **cmd, t_mshell *ms)
 {
 	int i;
+	int option;
 
 	i = 0;
-	if (!(ft_strncmp(cmd[++i], "-n",2)))
+	option = 0;
+	if(cmd[++i])
 	{	
-		while(cmd[i])
-		{
-			if(!(ft_strncmp(cmd[i],"-n",2)))
-				i++;
-			else
-			{
-				ft_putstr_fd(cmd[i], ms->st_out);
-				if(cmd[i + 1])
-					ft_putstr_fd(" ", ms->st_out);
-				i++;
-			}
-		}
-	}
-	else if ((ft_strncmp(cmd[i], "-n",2)))
-	{
-		while(cmd[i])
-		{
-			ft_putstr_fd(cmd[i], ms->st_out);
-			ft_putstr_fd(" ", ms->st_out);
+		if(!(ft_strcmp(cmd[i], "-n")))
+		{	
+			option = 1;
 			i++;
 		}
-		ft_putstr_fd("\n", ms->st_out);
+		while(cmd && cmd[i])
+		{
+			ft_putstr_fd(cmd[i], ms->st_out);
+			if(cmd[i + 1])
+				ft_putstr_fd(" ", ms->st_out);
+			i++;
+		}
 	}
+	if(option == 0)
+		ft_putstr_fd("\n", ms->st_out);
+	ms->status = 0;
 }

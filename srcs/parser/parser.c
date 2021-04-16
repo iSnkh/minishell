@@ -6,13 +6,19 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/10 14:45:04 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:33:46 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void		parse(void)
+/*
+void		parse(char **cmd)
 {
+    int i;
 
+    while(cmd[i])
+    {
+        
+    }
 }
+*/

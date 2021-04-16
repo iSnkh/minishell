@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/10 18:03:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:37:43 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,19 @@ typedef struct s_env
 	char			*var;
 	struct s_env	*next;
 }							t_env;
-
+/*
+typedef struct	s_cmd
+{
+	char	*name;
+	char	**arg;
+	int		sep;
+	int		end;
+	struct s_cmd *next;
+}				t_cmd;
+*/
 typedef struct s_mshell
 {
+	t_env	*first;
 	int		pfd[2];
 	int		p;
 	char	**path;
@@ -56,7 +66,7 @@ typedef struct s_mshell
 	int		ext;
 }							t_mshell;
 
-t_env	*first;
+t_env *first;
 
 int		main(int argc, char **argv, char **env);
 
@@ -72,7 +82,7 @@ void	ft_excute(t_mshell *ms, char **cmd);
 
 // built-in
 
-void	ft_replace_env(char *var, char *name); // en test
+void	ft_replace_env(char *var, char *name);
 void	ft_joinvar(char *var, t_env *tmp);
 void	ft_print_export(char *var, t_mshell *ms);
 void	built_in_export(char **cmd, t_mshell *ms);
@@ -116,8 +126,8 @@ void	ft_silence(int i);
 void	ft_nl(int i);
 void	ft_manage_signal(int key);
 
-void	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms);
-void	ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
+int		ft_exec_cmd2(char **cmd, char**env, t_mshell *ms);
+int		ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
 
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
 
