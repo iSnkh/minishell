@@ -5,33 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:54:57 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 22:33:56 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2021/01/08 14:28:20 by amonteli          #+#    #+#             */
+/*   Updated: 2021/04/11 11:51:49 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		init_minishell(char **env)
+void	init_struct(char **env)
 {
 	ms = malloc(sizeof(t_ms));
-	(void)env;
-	return (1);
+	if (!ms)
+	{
+		printf("ERROR TO MALLOC");
+		return ;
+	}
+	ms = malloc(sizeof(t_ms));
+	ms->env = env;
+	ms->cmds = NULL;
+	ms->tokens = NULL;
 }
 
-void	minishell(int fd, char *line, char **env)
+void	minishell(char **env)
 {
-	(void)fd;
-	if (!init_minishell(env))
-		return perror("Failed to init Minishell");
-	ft_printf("[Debug] line=[%s]\n", line);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
+	init_struct(env);
 	clear_console();
-	minishell(0, argv[1], env);
-	return (0);
+	ft_printf("[minishell] >");
+	shell_loop();
+}
+
+
+int	main(int argc, char **args, char **env)
+{
+	(void)args;
+	if (argc != 1)
+		printf("error please call ./minishell");
+	minishell(env);
+	// char	*str = remove_char("SALUT \"", '\\');
+
+
+	// ft_printf("{%s}\n", str);
 }

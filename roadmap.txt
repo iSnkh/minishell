@@ -1,0 +1,21 @@
+Recuperer la ligne entierement, si la ligne contient || && ou ;; retourner une erreur directement.
+
+
+* Split by quotes (simple quote & double quote)
+* Split by separators ';'
+(?) * Split by spaces? 
+* Replace $ENV by his values ($USER etc...)
+* Remove BackSlash '\'
+* Remove useless spaces (format to 1 not in quotes)
+* Set redirect at the end (if i have ls > 1 > 2 > 3 open 1 & 2 but open & write on 3 only)
+* Flag PIPE
+
+--- 
+* Split by quotes (simple quote & double quote)
+* Split by separators ';'
+* Replace $ENV by his values ($USER etc...)
+* Remove BackSlash '\'
+* Remove useless spaces (format to 1 not in quotes)
+* Split by spaces? 
+* Set redirect at the end (if i have ls > 1 > 2 > 3 open 1 & 2 but open & write on 3 only)
+* Flag PIPE

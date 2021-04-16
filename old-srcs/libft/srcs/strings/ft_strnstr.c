@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:54:57 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 22:33:56 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2019/10/09 18:44:30 by amonteli          #+#    #+#             */
+/*   Updated: 2020/07/16 03:39:51 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		init_minishell(char **env)
+char	*ft_strnstr(const char *s, const char *need, size_t len)
 {
-	ms = malloc(sizeof(t_ms));
-	(void)env;
-	return (1);
-}
+	size_t		i;
+	size_t		j;
 
-void	minishell(int fd, char *line, char **env)
-{
-	(void)fd;
-	if (!init_minishell(env))
-		return perror("Failed to init Minishell");
-	ft_printf("[Debug] line=[%s]\n", line);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	clear_console();
-	minishell(0, argv[1], env);
+	i = 0;
+	j = 0;
+	if (need[0] == '\0')
+		return ((char *)s);
+	while (s[i] && i < len)
+	{
+		while (s[i + j] == need[j] && need[j] && i + j < len)
+			j++;
+		if (need[j] == '\0')
+			return ((char *)&s[i]);
+		i++;
+		j = 0;
+	}
 	return (0);
 }

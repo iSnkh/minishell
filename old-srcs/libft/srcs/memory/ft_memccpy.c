@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:54:57 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 22:33:56 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2019/10/12 17:16:51 by amonteli          #+#    #+#             */
+/*   Updated: 2020/07/16 03:39:51 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		init_minishell(char **env)
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	ms = malloc(sizeof(t_ms));
-	(void)env;
-	return (1);
-}
+	size_t			count;
+	unsigned char	*source;
+	unsigned char	*d;
 
-void	minishell(int fd, char *line, char **env)
-{
-	(void)fd;
-	if (!init_minishell(env))
-		return perror("Failed to init Minishell");
-	ft_printf("[Debug] line=[%s]\n", line);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	clear_console();
-	minishell(0, argv[1], env);
+	count = 0;
+	source = (unsigned char *)src;
+	d = (unsigned char *)dest;
+	if (!src && !dest)
+		return (NULL);
+	while (count < n)
+	{
+		d[count] = source[count];
+		if (source[count] == (unsigned char)c)
+			return (d + count + 1);
+		count++;
+	}
 	return (0);
 }

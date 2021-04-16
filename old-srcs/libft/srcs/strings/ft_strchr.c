@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:54:57 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 22:33:56 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2019/10/08 19:41:47 by amonteli          #+#    #+#             */
+/*   Updated: 2020/07/16 03:39:51 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		init_minishell(char **env)
+char	*ft_strchr(const char *s, int c)
 {
-	ms = malloc(sizeof(t_ms));
-	(void)env;
-	return (1);
-}
+	int		count;
 
-void	minishell(int fd, char *line, char **env)
-{
-	(void)fd;
-	if (!init_minishell(env))
-		return perror("Failed to init Minishell");
-	ft_printf("[Debug] line=[%s]\n", line);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	clear_console();
-	minishell(0, argv[1], env);
+	count = -1;
+	while (s[++count])
+		if (s[count] == c)
+			return (char *)(s + count);
+	if (s[count] == c)
+		return (char *)(s + count);
 	return (0);
 }

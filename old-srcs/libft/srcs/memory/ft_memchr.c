@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:54:57 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 22:33:56 by amonteli         ###   ########lyon.fr   */
+/*   Created: 2019/10/13 18:46:14 by amonteli          #+#    #+#             */
+/*   Updated: 2020/07/16 03:40:16 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		init_minishell(char **env)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	ms = malloc(sizeof(t_ms));
-	(void)env;
-	return (1);
-}
+	size_t			count;
+	unsigned char	*str;
 
-void	minishell(int fd, char *line, char **env)
-{
-	(void)fd;
-	if (!init_minishell(env))
-		return perror("Failed to init Minishell");
-	ft_printf("[Debug] line=[%s]\n", line);
-}
-
-int		main(int argc, char **argv, char **env)
-{
-	(void)argc;
-	(void)argv;
-	clear_console();
-	minishell(0, argv[1], env);
+	count = -1;
+	str = (unsigned char *)s;
+	while (++count < n)
+		if (str[count] == (unsigned char)c)
+			return ((void *)str + count);
 	return (0);
 }
