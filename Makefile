@@ -6,7 +6,7 @@
 #    By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/04/16 22:32:48 by amonteli         ###   ########lyon.fr    #
+#    Updated: 2021/04/17 00:52:01 by amonteli         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,10 @@ CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \
-						$(addprefix utilities/, ui.c) \
+						$(addprefix checker/, input_checker.c) \
+						$(addprefix lexer/, lexer.c) \
+						$(addprefix splitter/, separator.c) \
+						$(addprefix utilities/, struct.c ui.c) \
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
