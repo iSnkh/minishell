@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 22:40:46 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/17 16:03:05 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 18:37:50 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,7 @@ int		fetch_command(char *line)
 			ms->count++;
 	}
 	ms->line = ft_strndup(line, ms->count);
-	ms->line_len = ft_strlen(ms->line);
+	ms->line_len = (int)ft_strlen(ms->line);
+	ms->pos = line;
 	return (TRUE);
-}
-int		split_by_separator(char *line)
-{
-	int		ret;
-
-	while (line[ms->count])
-	{
-		if (line[ms->count] == '\\') // skip /
-			ms->count += 2;
-		else if (line[ms->count] == '"' || line[ms->count] == '\'')
-		{
-			ret = skip_quotes(line);
-			if (ret < 0)
-				return (ret);
-		}
-		else if (line[ms->count] == ';')
-		{
-
-		}
-		else 
-			ms->count++;
-	}
-	return (1);
 }

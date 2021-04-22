@@ -1,0 +1,12 @@
+includes
+libft
+ls
+Makefile
+map.txt
+minishell
+old-srcs
+pablo
+pd
+roadmap.txt
+srcs
+TODO

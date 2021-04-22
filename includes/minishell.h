@@ -6,7 +6,7 @@
 /*   By: amonteli <amonteli@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:57:12 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/17 15:55:56 by amonteli         ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 05:41:06 by amonteli         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # include <stdbool.h>
 # include "../libft/includes/libft.h"
 
+# define LEXER_SPEC	" \t|;<>'\"\\"
+
 #define TRUE 1
-#define FALSE 2
+#define FALSE 0
 
 #define UNCOMPLETED_DQUOTE -3
 #define UNCOMPLETED_QUOTE -4
@@ -38,10 +40,11 @@ typedef struct			s_ms
 {
 		int				count;
 		char			*line;
-		char			*line_len;
+		int				line_len;
 		char			*pos;
 		char			**env;
 		struct s_token	*tokens;
+		int				lex_status;
 }						t_ms;
 
 /**
@@ -52,6 +55,11 @@ typedef enum		e_token_type
 	T_CMD = (1 << 0),
 	T_RED = (1 << 1),
 	T_PIPE = (1 << 2),
+	T_SQUOTE = (1 << 3),
+	T_DQUOTE = (1 << 4),
+	T_PARAM = (1 << 5),
+	T_SIMPLE = (1 << 6),
+	T_SEP = (1 << 7)
 }					t_token_type;
 
 typedef enum		e_op_type
@@ -63,21 +71,21 @@ typedef enum		e_op_type
 }					t_op_type;
 
 /**
- * 	EALLOC = Failed to malloc
- * 	ESYNTAX = Syntax invalid
- * 	ENOMATCH = No matching this scheme
- * 	EOK = OK
- * 	EEND = End of the input
+ * FALLOC = Failed to allocate
+ * FSYNTAX = Syntax error
+ * FNOMATCH = Syntax not matching this lexer func
+ * OK = OK 
+ * END = End of the lexer.
  */
 
-typedef enum		e_lex_err
+typedef enum		e_lexer_status
 {
-	LX_EALLOC = -3,
-	LX_ESYNTAX = -2,
-	LX_ENOMATCH = -1,
-	LX_EOK = 0,
-	LX_EEND = 1,
-}					t_lex_err;
+	LEXER_FALLOC = -3,
+	LEXER_FSYNTAX = -2,
+	LEXER_FNOMATCH = -1,
+	LEXER_OK = 0,
+	LEXER_END = 1,
+}					t_lexer_status;
 
 /**
  * struct s_cmd
@@ -122,5 +130,61 @@ void	clear_console(void);
 
 int		split_by_separator(char *line);
 int		fetch_command(char *line);
+
+/**
+ * 	lexer/tokenizer.c
+ */
+
+t_token		*ndup_token(const char *input, size_t n, int type);
+void		token_add_front(t_token **tokens, t_token *token);
+void		token_add_back(t_token **tokens, t_token *token);
+int			create_cmd(t_token **tokens, t_token *line, t_token *data);
+t_token		*new_token(void *data, int type);
+void		clear_tokens(t_token **tokens);
+
+/**
+ *	lexer/space_lexer.c
+ */
+
+int					is_spaces(char c);
+t_lexer_status		lex_spaces(void);
+
+/**
+ * lexer/param_lexer.c
+ */
+
+t_lexer_status	lex_param_simple(t_token **tokens, int flags);
+t_lexer_status	lex_param(t_token **tokens, int flags);
+
+/**
+ * lexer/quotes_lexer.c
+ */
+
+t_lexer_status	lex_simple_quote(t_token **tokens, int flags);
+t_lexer_status	lex_backslash(t_token **tokens, int flags, char **start);
+t_lexer_status	lex_double_quote(t_token **tokens, int flags);
+t_lexer_status	lex_quotes(t_token **tokens, int flags);
+
+/**
+ * lexer/redirection
+ */
+
+t_lexer_status	lex_redirection(t_token **tokens);
+
+/**
+ * lexer/command
+ */
+
+t_lexer_status	lex_cmd_simple(t_token **tokens);
+
+/**
+ * lexer/operator
+ */
+
+t_lexer_status	lex_operation(t_token **tokens);
+
+t_lexer_status	lex_token(t_token **tokens);
+t_lexer_status	lex_separator(t_token **tokens);
+t_lexer_status	lex_tokens(t_token **tokens);
 
 #endif
